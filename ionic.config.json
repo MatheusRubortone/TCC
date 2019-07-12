@@ -1,0 +1,7 @@
+{
+  "name": "dontGoAlone",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
