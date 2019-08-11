@@ -1,0 +1,31 @@
+<ion-content color="primary">
+  <br>
+
+  <div>
+    <h1 style="font-size: 60px; font-family: 'Chewy Regular', sans-serif">Don't Go Alone</h1>
+  </div>
+
+  <div class="form">
+    <form #form="ngForm" (ngSubmit)="login(form)" method="post">
+
+      <ion-item color="primary" class="formulario">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input ngModel type="email" name="email"></ion-input>
+      </ion-item>
+
+      <ion-item color="primary" class="formulario">
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input ngModel type="password" name="password"></ion-input>
+      </ion-item>
+
+      <ion-button fill="clear"  style="margin-right: 15px;">Esqueceu a senha?</ion-button>
+
+      <ion-button class="botao" color="light" expand="block">Entrar</ion-button>
+
+      <p text-center>Ou</p>
+
+      <ion-button class="botao" color="light" expand="block" (click)="registerModal()">Criar Conta</ion-button>
+
+    </form>
+  </div>
+</ion-content>
