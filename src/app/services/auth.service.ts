@@ -8,6 +8,7 @@ import { User } from '../models/user';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   isLoggedIn = false;
   token:any;
@@ -36,11 +37,13 @@ export class AuthService {
       }),
     );
   }
+
   register(fName: String, lName: String, email: String, password: String) {
     return this.http.post(this.env.API_URL + 'auth/register',
       {fName: fName, lName: lName, email: email, password: password}
     )
   }
+
   logout() {
     const headers = new HttpHeaders({
       'Authorization': this.token["token_type"]+" "+this.token["access_token"]
@@ -55,6 +58,7 @@ export class AuthService {
       })
     )
   }
+
   user() {
     const headers = new HttpHeaders({
       'Authorization': this.token["token_type"]+" "+this.token["access_token"]
@@ -66,6 +70,7 @@ export class AuthService {
       })
     )
   }
+
   getToken() {
     return this.storage.getItem('token').then(
       data => {
