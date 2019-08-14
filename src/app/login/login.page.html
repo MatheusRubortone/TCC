@@ -5,7 +5,7 @@
   </div>
 
   <div class="form">
-    <form #form="ngForm" (ngSubmit)="login(form)" method="post">
+    <form #form="ngForm" (ngSubmit)="login(form)" method="get">
 
       <ion-item color="primary" class="formulario">
         <ion-label position="floating">Email</ion-label>
@@ -17,10 +17,10 @@
         <ion-input ngModel type="password" name="password"></ion-input>
       </ion-item>
       <br>
-      <ion-button fill="clear" color="light" expand="block" style="width:90%; margin: auto; text-align: right;">Esqueceu a senha?</ion-button>
+      <ion-button fill="clear" color="light" expand="block" id="forgot">Esqueceu a senha?</ion-button>
       <br>
 
-      <ion-button class="botao" color="light" expand="block">Entrar</ion-button>
+      <ion-button class="botao" color="light" expand="block" type="submit">Entrar</ion-button>
 
       <p text-center>Ou</p>
 

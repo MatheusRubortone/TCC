@@ -24,8 +24,7 @@ export class LoginPage implements OnInit {
 
   // On Register button tap, dismiss login modal and open register modal
   async registerModal() {
-    //navegar pra registro
-    this.alertService.presentToast("Eu te amo demais meu xuxu");
+    this.navCtrl.navigateRoot('/register');
   }
 
   login(form: NgForm) {
@@ -37,7 +36,7 @@ export class LoginPage implements OnInit {
         console.log(error);
       },
       () => {
-        this.navCtrl.navigateRoot('/dashboard');
+        //this.navCtrl.navigateRoot('/dashboard');
       }
     );
   }

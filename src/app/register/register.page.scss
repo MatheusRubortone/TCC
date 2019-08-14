@@ -1,0 +1,37 @@
+$label-md-text-color-focused: white;
+$label-wp-text-color-focused: white;
+
+h1{
+    text-align: left;
+    margin-left: 10%;
+    font-size: 300%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
+
+ion-input{
+    --ion-color-primary: white;
+    color: var(--ion-color-primary);
+    border-color: var(--ion-color-primary);
+}
+
+.form{
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.item {
+    border-bottom-color: white !important;
+}
+
+.botao{
+    padding: 1px;
+    width: 90%;
+    margin: auto;
+    border-radius: 2px;
+}
+
+.formulario{
+    width: 90%;
+    margin: auto;
+}

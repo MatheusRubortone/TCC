@@ -4,6 +4,7 @@ import { tap } from 'rxjs/operators';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { EnvService } from './env.service';
 import { User } from '../models/user';
+import { AlertService } from './alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class AuthService {
     private http: HttpClient,
     private storage: NativeStorage,
     private env: EnvService,
+    private alertService: AlertService
   ) { }
 
   login(email: String, password: String) {
@@ -24,9 +26,10 @@ export class AuthService {
       {email: email, password: password}
     ).pipe(
       tap(token => {
+        console.log(token);
         this.storage.setItem('token', token)
         .then(
-          () => {
+          () => { 
             console.log('Token Stored');
           },
           error => console.error('Error storing item', error)

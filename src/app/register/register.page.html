@@ -1,9 +1,44 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Register</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content color="primary">
 
-<ion-content>
+  <br><br>
 
+  <h1>Criar conta</h1>
+
+  <br><br>
+
+  <div class="form">
+    <form #form="ngForm" (ngSubmit)="register(form)" method="post">
+
+      <ion-item color="primary" class="formulario">
+        <ion-label position="floating">Nome Completo</ion-label>
+        <ion-input ngModel type="text" name="name"></ion-input>
+      </ion-item>
+
+      <ion-item color="primary" class="formulario">
+        <ion-label position="floating">Data de Nascimento</ion-label>
+        <ion-datetime displayFormat="DD MMMM, YYYY" 
+        monthNames="Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro"></ion-datetime>
+      </ion-item>
+
+      <ion-item color="primary" class="formulario">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input ngModel type="email" name="email"></ion-input>
+      </ion-item>
+
+      <ion-item color="primary" class="formulario">
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input ngModel type="password" name="password"></ion-input>
+      </ion-item>
+
+      <ion-item color="primary" class="formulario">
+        <ion-label position="floating">Confirme a senha</ion-label>
+        <ion-input ngModel type="password" name="password"></ion-input>
+      </ion-item>
+
+      <br>
+
+      <ion-button class="botao" color="light" expand="block" (click)="registerModal()">Enviar</ion-button>
+
+    </form>
+  </div>
 </ion-content>
