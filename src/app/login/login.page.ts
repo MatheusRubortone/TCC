@@ -12,6 +12,8 @@ import { AlertService } from 'src/app/services/alert.service';
 })
 export class LoginPage implements OnInit {
 
+  erroEmail: boolean;
+
   constructor(
     private modalController: ModalController,
     private authService: AuthService,
@@ -25,6 +27,10 @@ export class LoginPage implements OnInit {
   // On Register button tap, dismiss login modal and open register modal
   async registerModal() {
     this.navCtrl.navigateRoot('/register');
+  }
+
+  validarForm(form: NgForm){
+    
   }
 
   login(form: NgForm) {

@@ -5,11 +5,12 @@
   </div>
 
   <div class="form">
-    <form #form="ngForm" (ngSubmit)="login(form)" method="get">
+    <form #form="ngForm" (ngSubmit)="validarForm(form)" method="get">
 
       <ion-item color="primary" class="formulario">
         <ion-label position="floating">Email</ion-label>
         <ion-input ngModel type="email" name="email"></ion-input>
+        <p *ngIf="erroEmail" class="erro">Insira o nome completo!</p>
       </ion-item>
 
       <ion-item color="primary" class="formulario">
