@@ -1,10 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Component } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { EnvService } from './env.service';
 import { User } from '../models/user';
 import { AlertService } from './alert.service';
+import { DatePipe } from '@angular/common';
+import { Http } from '@angular/http';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +16,19 @@ export class AuthService {
   isLoggedIn = false;
   token:any;
 
+  data: JSON;
+  us: User;
+
   constructor(
-    private http: HttpClient,
+    private http: Http,
     private storage: NativeStorage,
     private env: EnvService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    public datepipe: DatePipe,
   ) { }
 
   login(email: String, password: String) {
-    return this.http.post(this.env.API_URL + 'auth/login',
+    return this.http.post(this.env.API_URL + '/user/login',
       {email: email, password: password}
     ).pipe(
       tap(token => {
@@ -42,38 +48,50 @@ export class AuthService {
   }
 
   register(name: String, email: String, password: String, dtNascimento: String) {
-    console.log("{{name + ' ' + email + ' ' + password + ' ' + dtNascimento}}");
-    return this.http.post(this.env.API_URL + 'auth/register',
-      {name: name, email: email, password: password}
+    let data = this.getDate(dtNascimento.toString());
+    return this.http.post(this.env.API_URL + '/user/register/',
+      {user: name, password: password, email: email, dtnascimento: data}
     )
   }
 
-  logout() {
-    const headers = new HttpHeaders({
-      'Authorization': this.token["token_type"]+" "+this.token["access_token"]
-    });
-    return this.http.get(this.env.API_URL + 'auth/logout', { headers: headers })
-    .pipe(
-      tap(data => {
-        this.storage.remove("token");
-        this.isLoggedIn = false;
-        delete this.token;
-        return data;
-      })
-    )
-  }
+  // register2(){
+  //   let body = JSON.parse('{"user":"Joao","password":"asd","email":"ads@ads","dtnascimento":"23-12-1999"}');
+  //   let nativeCall = this.nativeHttp.post(this.env.API_URL + '/user/register/', 
+  //     {body}, {
+  //       'Content-Type':'application/json'
+  //     })
 
-  user() {
-    const headers = new HttpHeaders({
-      'Authorization': this.token["token_type"]+" "+this.token["access_token"]
-    });
-    return this.http.get<User>(this.env.API_URL + 'auth/user', { headers: headers })
-    .pipe(
-      tap(user => {
-        return user;
-      })
-    )
-  }
+  //   from(nativeCall).pipe().subscribe(data=>{ 
+  //     console.log('retorno: ', data);
+  //   })
+  // }
+
+  // logout() {
+  //   const headers = new HttpHeaders({
+  //     'Authorization': this.token["token_type"]+" "+this.token["access_token"]
+  //   });
+  //   return this.http.get(this.env.API_URL + 'auth/logout', { headers: headers })
+  //   .pipe(
+  //     tap(data => {
+  //       this.storage.remove("token");
+  //       this.isLoggedIn = false;
+  //       delete this.token;
+  //       return data;
+  //     })
+  //   )
+  // }
+
+  // user() {
+  //   const headers = new HttpHeaders({
+  //     'Authorization': this.token["token_type"]+" "+this.token["access_token"]
+  //   });
+  //   return this.http.get<User>(this.env.API_URL + 'auth/user', { headers: headers })
+  //   .pipe(
+  //     tap(user => {
+  //       return user;
+  //     })
+  //   )
+  // }
 
   getToken() {
     return this.storage.getItem('token').then(
@@ -91,4 +109,10 @@ export class AuthService {
       }
     );
   }
+
+  getDate(dateF: string){
+    let date = new Date(dateF);
+    let latest_date =this.datepipe.transform(date, 'dd-MM-yyyy');
+    return date.toString();
+   }
 }

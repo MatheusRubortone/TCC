@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class EnvService {
-  API_URL = 'https://b19cacfd-823a-440e-a3db-ebbe4a40a39c.mock.pstmn.io/';
+  API_URL = 'http://localhost:44333/api';
 
   constructor() { }
 }

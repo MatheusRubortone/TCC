@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 
 import { HttpClientModule }    from '@angular/common/http';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { DatePipe } from '@angular/common';
+import { Http, HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,12 +20,14 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
   imports: [BrowserModule, 
             IonicModule.forRoot(), 
             AppRoutingModule,
-            HttpClientModule],
+            HttpClientModule,
+          HttpModule],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    NativeStorage
+    NativeStorage,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

@@ -20,6 +20,10 @@ ion-input{
     padding-right: 2%;
 }
 
+.label{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
 .item {
     border-bottom-color: white !important;
 }
@@ -29,9 +33,15 @@ ion-input{
     width: 90%;
     margin: auto;
     border-radius: 2px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
 .formulario{
     width: 90%;
     margin: auto;
+}
+
+.error{
+    margin-left: 10%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

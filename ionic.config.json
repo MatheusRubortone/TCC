@@ -1,7 +1,13 @@
 {
-  "name": "dontGoAlone",
+  "name": "Don't Go Alone",
   "integrations": {
     "cordova": {}
   },
+  "proxies": [
+    {
+      "path": "/testeapi",
+      "proxyUrl": "https://localhost:44333/api"
+    }
+  ],
   "type": "angular"
 }

@@ -1,32 +1,33 @@
 <ion-content color="primary">
-  <br>
   <div style="margin-top: 10%;">
     <h1 style="font-size: 80px; font-family: 'Chewy Regular', sans-serif">Don't Go<br>Alone</h1>
   </div>
 
   <div class="form">
-    <form #form="ngForm" (ngSubmit)="validarForm(form)" method="get">
+    <form [formGroup]="formGroup" #form="ngForm" (ngSubmit)="login(form)" method="get">
 
       <ion-item color="primary" class="formulario">
-        <ion-label position="floating">Email</ion-label>
-        <ion-input ngModel type="email" name="email"></ion-input>
-        <p *ngIf="erroEmail" class="erro">Insira o nome completo!</p>
+        <ion-label class="label" position="floating">Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
       </ion-item>
+      <p class="error" *ngIf="email.hasError('required') && email.touched">É necessário informar o email.</p>
+      <p class="error" *ngIf="email.hasError('pattern') && email.dirty">Email inválido.</p>
 
       <ion-item color="primary" class="formulario">
-        <ion-label position="floating">Senha</ion-label>
-        <ion-input ngModel type="password" name="password"></ion-input>
+        <ion-label class="label" position="floating">Senha</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
       </ion-item>
+      <p class="error" *ngIf="password.hasError('required') && password.touched">É necessário informar a senha.</p>
       <br>
       <ion-button fill="clear" color="light" expand="block" id="forgot">Esqueceu a senha?</ion-button>
       <br>
 
-      <ion-button class="botao" color="light" expand="block" type="submit">Entrar</ion-button>
+      <ion-button class="botao" color="light" expand="block" type="submit" [disabled]="!formGroup.valid">Entrar</ion-button>
 
       <p text-center>Ou</p>
 
       <ion-button class="botao" color="light" expand="block" routerLink="/register" routerDirection="forward">Criar Conta</ion-button>
-
+      <br>
     </form>
   </div>
 </ion-content>
