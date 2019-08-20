@@ -4,6 +4,7 @@ import { RegisterPage } from '../register/register.page';
 import { NgForm, AbstractControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginPage implements OnInit {
     private authService: AuthService,
     private navCtrl: NavController,
     private alertService: AlertService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private loadingService: LoadingService
   ) { 
 
     this.formGroup = formBuilder.group({
@@ -43,24 +45,23 @@ export class LoginPage implements OnInit {
   ionViewWillEnter() {
     this.authService.getToken().then(() => {
       if(this.authService.isLoggedIn) {
-        this.navCtrl.navigateRoot('/home');
+        this.navCtrl.navigateRoot('/tabs');
       }
     });
   }
 
-  login(form: NgForm) {
+  async login(form: NgForm) {
+    await this.loadingService.presentLoading();
     this.authService.login(form.value.email, form.value.password).subscribe(
       data => {
         console.log(data);
         let response = data.json();
-        if(response._codRetRequest == 1) this.navCtrl.navigateRoot('/home');
+        this.loadingService.dismiss();
+        if(response._codRetRequest == 1) this.navCtrl.navigateRoot('/tabs');
         else this.alertService.presentToast("Falha no login. Usuário ou senha inválidos.");
       },
       error => {
         console.log(error);
-      },
-      () => {
-        //this.navCtrl.navigateRoot('/home');
       }
     );
   }

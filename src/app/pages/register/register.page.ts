@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { NgForm, FormGroup, AbstractControl, AbstractControlDirective, FormBuilder, Validators } from '@angular/forms';
-import { AlertService } from '../services/alert.service';
+import { AlertService } from 'src/app/services/alert.service';
 import { validateConfig } from '@angular/router/src/config';
+import { NavController } from '@ionic/angular';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-register',
@@ -21,51 +23,64 @@ export class RegisterPage implements OnInit {
   constructor(
     private authService: AuthService,
     private alertService: AlertService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private navCtrl: NavController,
+    private lodingService: LoadingService
   ) {
 
     this.formGroup = formBuilder.group({
-      name:['', Validators.compose([
+      name: ['', Validators.compose([
         Validators.required,
         Validators.pattern('^([a-zA-Z]{2,}\\s[a-zA-z]{1,}\'?-?[a-zA-Z]{2,}\\s?([a-zA-Z]{1,})?)')
       ])],
-      birthDate:['', Validators.required],
-      email:['', Validators.compose([
+      birthDate: ['', Validators.required],
+      email: ['', Validators.compose([
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
       ])],
-      password:['', Validators.required],
-      passwordConf:['', Validators.required]
-    }, {validator: this.matchingPasswords('password', 'passwordConf')});
+      password: ['', Validators.required],
+      passwordConf: ['', Validators.required]
+    }, { validator: this.matchingPasswords('password', 'passwordConf') });
 
     this.name = this.formGroup.controls['name'];
     this.birthDate = this.formGroup.controls['birthDate'];
     this.email = this.formGroup.controls['email'];
     this.password = this.formGroup.controls['password'];
     this.passwordConf = this.formGroup.controls['passwordConf'];
-   }
+  }
 
   ngOnInit() {
   }
 
-  register(form: NgForm) {
-    console.log(form.value.name + ' ' + form.value.email + ' ' + form.value.password + ' ' + form.value.birthDate);
-
+  async register(form: NgForm) {
+    await this.lodingService.presentLoading();
     this.authService.register(form.value.name, form.value.email, form.value.password, form.value.birthDate).subscribe(
       data => {
-        this.alertService.presentToast("Registered");
+        let response = data.json();
+        console.log(response);
+        if (response['_codRetRequest'] == 1)
+          this.authService.login(form.value.email, form.value.password).subscribe(
+          data => {
+            let response = data.json();
+            this.lodingService.dismiss();
+            if (response._codRetRequest == 1) this.navCtrl.navigateRoot('/tabs');
+            else this.alertService.presentToast("Falha no login. Usuário ou senha inválidos.");
+          },
+          error => {
+            this.alertService.presentToast("Falha no login. Tente Novamente.");
+            console.log(error);
+          }
+        );
       },
       error => {
+        this.alertService.presentToast("Falha no cadastro. Tente Novamente.");
         console.log(error);
-      },
-      () => {
-        //this.navCtrl.navigateRoot('/home');
       }
     );
   }
 
   matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
-    return (group: FormGroup): {[key: string]: any} => {
+    return (group: FormGroup): { [key: string]: any } => {
       let password = group.controls[passwordKey];
       let confirmPassword = group.controls[confirmPasswordKey];
 
@@ -76,6 +91,4 @@ export class RegisterPage implements OnInit {
       }
     }
   }
-
-  
 }

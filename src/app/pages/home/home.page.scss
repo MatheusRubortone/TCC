@@ -1,0 +1,85 @@
+ion-input {
+    --padding-start:12px;
+    --padding-end: 12px;
+}
+
+#headerTitle{
+    font-family:'Chewy Regular', sans-serif;
+    color: #A341FF;
+}
+
+#campoBusca{
+    width: 90%;
+    margin: auto;
+    margin-top: 5%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    height: 8%;
+    max-height: 50px;
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.1);
+}
+
+#es{
+    clear: both;
+    width: 90%;
+    margin: auto;
+    border: 1px solid lightgray;    
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+#est{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: inline;
+}
+
+#title{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 90%;
+    margin: auto;
+}
+
+#estx{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#icon{
+    color: --ion-color-primary;
+    display: inline-block;
+}
+
+.container {
+    clear: both;
+    width:100%;
+    margin: auto;
+    height: 27%;
+    overflow: hidden; 
+    white-space: nowrap;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    .scroll {
+      overflow: auto;
+    }
+    //border: 1px solid grey;
+
+    padding-top: 5px;
+}
+
+.itemLista{
+    border: 1px solid lightgray;
+    display: inline-block;
+    width: 90%;
+    height: 100%;
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.1);
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.titleEvent{
+    display: inline;
+}

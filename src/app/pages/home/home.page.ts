@@ -9,13 +9,20 @@ import { routerNgProbeToken } from '@angular/router/src/router_module';
 })
 export class HomePage implements OnInit {
 
+
+  items = [
+    {
+      title:"Festa 1"
+    },
+    {
+      title:"Festa 2"
+    }
+  ];
+
   constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
-  go(){
-    this.router.navigate(['']);
-  }
 
 }

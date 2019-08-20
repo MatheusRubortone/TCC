@@ -13,6 +13,7 @@ import { HttpClientModule }    from '@angular/common/http';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { DatePipe } from '@angular/common';
 import { Http, HttpModule } from '@angular/http';
+import { Moment } from 'moment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +22,7 @@ import { Http, HttpModule } from '@angular/http';
             IonicModule.forRoot(), 
             AppRoutingModule,
             HttpClientModule,
-          HttpModule],
+            HttpModule],
   providers: [
     StatusBar,
     SplashScreen,

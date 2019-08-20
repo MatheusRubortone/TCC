@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title id="headerTitle">Don't Go Alone</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+  <ion-input type="text" id="campoBusca" placeholder="Buscar Eventos"></ion-input>
+  <br>
+  <div id="es">
+    <h1 id="est">Está Sozinho(a)?</h1>
+    <p id="estx">Vamos encontrar uma companhia para você!</p>
+    <ion-icon id="icon" name="arrow-forward"></ion-icon>
+  </div>
+
+  <br>
+  <h1 id="title">Próximos Eventos</h1>
+  <br>
+
+  <div class="container">
+    <div class="scroll" scrollX="true">
+      <div class="itemLista" *ngFor="let item of items">
+        <h1 class="titleEvent">{{item.title}}</h1>
+        <p>Festa massa no lugar tal e tal</p>
+        <p>Endereco tal</p>
+        <p>Data tal</p>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <h1 id="title">Populares entre os seus amigos</h1>
+  <br>
+
+  <div class="container">
+    <div class="scroll" scrollX="true">
+      <div class="itemLista" *ngFor="let item of items">
+        <h1 class="titleEvent">{{item.title}}</h1>
+        <p>Festa massa no lugar tal e tal</p>
+        <p>Data tal</p>
+        <p>Endereco tal</p>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
