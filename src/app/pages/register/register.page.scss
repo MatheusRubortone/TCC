@@ -9,10 +9,25 @@ h1{
     font-weight: bold;
 }
 
+.item-input-has-focus .label-md[floating], .input-has-focus .label-md[floating]{
+    color: white; //label color when focusing
+}
+.item-input .label-md{
+    color: white; //label color
+}
+
+ion-content{
+    --ion-background-color:linear-gradient(to top left, #9400d3, #ff69b4);
+}
+
 ion-input{
     --ion-color-primary: white;
     color: var(--ion-color-primary);
     border-color: var(--ion-color-primary);
+}
+
+ion-datetime{
+    color: white
 }
 
 .form{
@@ -20,8 +35,14 @@ ion-input{
     padding-right: 2%;
 }
 
+.title{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+}
+
 .label{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
 }
 
 .item {
@@ -43,5 +64,6 @@ ion-input{
 
 .error{
     margin-left: 10%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
 }

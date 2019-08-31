@@ -1,10 +1,84 @@
 <ion-header>
   <ion-toolbar>
-      <ion-back-button></ion-back-button>
-    <ion-title>events</ion-title>
+    <ion-title id="headerTitle">Don't Go Alone</ion-title>
   </ion-toolbar>
 </ion-header>
 
+<ion-segment mode="md" (ionChange)="segmentChanged()" [(ngModel)]="segment" color="primary" scrollable>
+  <ion-segment-button value="0" mode="md" checked>
+    <p>Salvos</p>
+  </ion-segment-button>
+  <ion-segment-button value="1" mode="md">
+    <p>Confirmados</p>
+  </ion-segment-button>
+  <ion-segment-button value="2" mode="md">
+    <p>Convites</p>
+  </ion-segment-button>
+  <ion-segment-button value="3" mode="md">
+    <p>Seus Eventos</p>
+  </ion-segment-button>
+</ion-segment>
 <ion-content>
+  <ion-slides #slides (ionSlideDidChange)="slideChanged()" class="slides">
+    <ion-slide class="slide">
+      <div class="divList">
+        <ion-list class="list">
+          <br>
+          <div class="card" style="background-image: url(/assets/party.jpg);" *ngFor="let event of events">
+            <div class="layer">
+              <div class="info">
+                <div class="card-toptitle">
+                  <p class="p-toptitle">{{event.dataEvento}}</p>
+                </div>
+                <div class="card-title">
+                  <p class="p-title">{{event.nomeEvento}}</p>
+                </div>
+                <div class="card-subtitle">
+                  <p class="p-subtitle">{{event.localEvento}}</p>
+                </div>
+              </div>
+              <div class="icon">
+                <ion-icon class="heartIcon" name="heart-empty"></ion-icon>
+              </div>
+            </div>
+          </div>
+        </ion-list>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="divList">
+        <ion-list class="list">
+          <br>
+          <div class="card" style="background-image: url(/assets/party.jpg);" *ngFor="let event of events">
+              <div class="layer">
+                <div class="info">
+                  <div class="card-toptitle">
+                    <p class="p-toptitle">{{event.dataEvento}}</p>
+                  </div>
+                  <div class="card-title">
+                    <p class="p-title">{{event.nomeEvento}}</p>
+                  </div>
+                  <div class="card-subtitle">
+                    <p class="p-subtitle">{{event.localEvento}}</p>
+                  </div>
+                </div>
+                <div class="icon">
+                  <ion-icon class="heartIcon" name="heart-empty"></ion-icon>
+                </div>
+              </div>
+          </div>
+        </ion-list>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      third
+    </ion-slide>
+    <ion-slide>
+    </ion-slide>
+  </ion-slides>
+
+  <ion-fab slot="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button><ion-icon class="heartIcon" name="add" style="font-size: 350%;" routerLink="/create-event" routerDirection="root"></ion-icon></ion-fab-button>
+  </ion-fab>
 
 </ion-content>

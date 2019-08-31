@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
-import { RegisterPage } from '../register/register.page';
 import { NgForm, AbstractControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
-import { AlertService } from 'src/app/services/alert.service';
-import { LoadingService } from 'src/app/services/loading.service';
+import { AuthService } from 'src/app/services/auth_service/auth.service';
+import { AlertService } from 'src/app/services/alert_service/alert.service';
+import { LoadingService } from 'src/app/services/loading_service/loading.service';
 
 @Component({
   selector: 'app-login',
@@ -58,9 +57,12 @@ export class LoginPage implements OnInit {
         let response = data.json();
         this.loadingService.dismiss();
         if(response._codRetRequest == 1) this.navCtrl.navigateRoot('/tabs');
-        else this.alertService.presentToast("Falha no login. Usuário ou senha inválidos.");
+        if(response._codRetRequest == 0) this.alertService.presentToast("Usuário ou senha incorretos, tente novamente.");
+        else if(response._codRetRequest == 999) this.alertService.presentToast("Ocorreu um erro no login. Tente novamente.");
+
       },
       error => {
+        this.loadingService.dismiss();
         console.log(error);
       }
     );

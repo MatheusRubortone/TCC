@@ -5,3 +5,7 @@
 // file can hold Sass mixins, functions, and placeholder classes to be imported 
 // and used throughout the application.
 @import '../fonts/Chewy-Regular.ttf';
+
+* ::-webkit-scrollbar{
+    display: none;
+}

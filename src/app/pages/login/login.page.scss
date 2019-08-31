@@ -3,13 +3,25 @@ $label-wp-text-color-focused: white;
 
 h1{
     text-align: center;
+    color: white;
+}
+
+.item-input-has-focus .label-md[floating], .input-has-focus .label-md[floating]{
+    color: black; //label color when focusing
+}
+.item-input .label-md{
+    color: black; //label color
 }
 
 ion-input{
-    --ion-color-primary: white;
-    color: var(--ion-color-primary);
+    color: white;
     border-color: var(--ion-color-primary);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+ion-content{
+    --ion-background-color:linear-gradient(to bottom right, #9400d3, #ff69b4);
 }
 
 .form{
@@ -37,10 +49,16 @@ ion-input{
 .error{
     margin-left: 10%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
 }
 
 .label{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+}
+
+.ou{
+    color: white;
 }
 
 #forgot{

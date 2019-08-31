@@ -6,7 +6,7 @@
 }
 
 :root {
-  --ion-color-primary: #A341FF;
+  --ion-color-primary: #9400d3;
   --ion-color-primary-rgb: 171,71,188;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255,255,255;
@@ -68,4 +68,8 @@
   --ion-color-light-contrast-rgb: 0,0,0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  --ion-background-color: #fafafa;
+
+  ion-item{ --border-color: white; }
 }

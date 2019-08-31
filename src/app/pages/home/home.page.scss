@@ -3,42 +3,54 @@ ion-input {
     --padding-end: 12px;
 }
 
+ion-content{
+    --ion-background-color: #fafafa;
+}
+
+.descEvento{
+    font-size: 12px;
+}
+
 #headerTitle{
     font-family:'Chewy Regular', sans-serif;
-    color: #A341FF;
+    background: linear-gradient(to right,#9400d3 0%, #ff69b4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 #campoBusca{
+    background-color: white;
     width: 90%;
     margin: auto;
     margin-top: 5%;
-    border: 1px solid lightgray;
+    border: 1px solid #e2e2e2;
     border-radius: 5px;
     height: 8%;
     max-height: 50px;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.1);
 }
 
 #es{
+    background-color: white;
     clear: both;
     width: 90%;
     margin: auto;
-    border: 1px solid lightgray;    
+    border: 1px solid #e2e2e2;    
     border-radius: 5px;
     padding: 15px;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.1);
     overflow: hidden;
 }
 
 #est{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: inline;
+    font-size: 125%;
 }
 
 #title{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     width: 90%;
     margin: auto;
+    font-size: 125%;
 }
 
 #estx{
@@ -46,40 +58,110 @@ ion-input {
 }
 
 #icon{
-    color: --ion-color-primary;
+    color: #A341FF;
     display: inline-block;
 }
 
-.container {
-    clear: both;
-    width:100%;
-    margin: auto;
-    height: 27%;
-    overflow: hidden; 
-    white-space: nowrap;
-    ::-webkit-scrollbar {
-      display: none;
-    }
-    .scroll {
-      overflow: auto;
-    }
-    //border: 1px solid grey;
-
-    padding-top: 5px;
+.slides{
+    height: 35%;
 }
 
-.itemLista{
-    border: 1px solid lightgray;
-    display: inline-block;
-    width: 90%;
+.slide{
     height: 100%;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.1);
-    margin-left: 5%;
-    margin-right: 5%;
-    padding: 15px;
+}
+
+.slideDiv{
+    display: block;
+    background-color: white;
+    border: 1px solid #e2e2e2;
+    margin-left:5%;
+    margin-right:5%;
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    border-radius:  5px;
+    background-size: cover;
+    background-position: center center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    overflow: hidden;
+}
+
+.slideContent{
+    margin-top: 30%;
+    height: 50%;
+    padding: 2.5%;
+    width: 75%;
+    display: inline-block;
+    float: left;
+    overflow: hidden;
+}
+
+.maisEventos > h3 {
+    color: #A341FF;
+}
+
+.dataEvento{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 115%;
+    display: block;
+    text-align: left;
+    margin: 0;
+    color: #A341FF;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.nomeEvento{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: left;
+    color: white;
+    margin: 0;
+    font-size: 150%;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.localEvento{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;   
+    margin: 0;
+    font-size: 125%;
+    color: #A341FF;
+    display: block;
+    text-align: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.iconDiv{
+    margin-top: 37.5%;
+    height: 50%;
+    width: 25%;
+    float: left;
+}
+
+.heartIcon{
+    display: inlinde-block;
+    font-size: 250%; 
+    color:#A341FF;
+}
+
+.layer {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     border-radius: 5px;
 }
 
-.titleEvent{
-    display: inline;
+.seta{
+    text-align: right;
+    font-size: 200%;
+    margin: 0;
 }

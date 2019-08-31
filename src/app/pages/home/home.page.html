@@ -1,46 +1,82 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title id="headerTitle">Don't Go Alone</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-title id="headerTitle">Don't Go Alone</ion-title>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content>
   <ion-input type="text" id="campoBusca" placeholder="Buscar Eventos"></ion-input>
   <br>
   <div id="es">
-    <h1 id="est">Está Sozinho(a)?</h1>
+    <h3 id="est">Está Sozinho(a)?</h3>
     <p id="estx">Vamos encontrar uma companhia para você!</p>
-    <ion-icon id="icon" name="arrow-forward"></ion-icon>
+    <p class="seta" ><ion-icon id="icon" name="arrow-forward"></ion-icon></p>
   </div>
 
   <br>
-  <h1 id="title">Próximos Eventos</h1>
+  <h3 id="title">Próximos Eventos</h3>
   <br>
 
-  <div class="container">
+
+  <!-- Outro jeio de fazer os slider -->
+  <!-- <div class="container">
     <div class="scroll" scrollX="true">
       <div class="itemLista" *ngFor="let item of items">
-        <h1 class="titleEvent">{{item.title}}</h1>
-        <p>Festa massa no lugar tal e tal</p>
-        <p>Endereco tal</p>
-        <p>Data tal</p>
+        <ion-thumbnail  >
+          <ion-img [src]="item.foto"></ion-img>
+        </ion-thumbnail>
+        <div class="itemContent">
+          <h3 class="titleEvent">{{item.title}}</h3>
+          <p class="descEvento">Festa massa no lugar tal e tal</p>
+          <p class="descEvento">Endereco tal</p>
+          <p class="descEvento">Data tal</p>
+        </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
+  <ion-slides [options]="slider0pts" class="slides">
+      <ion-slide *ngFor="let event of events" class="slide">
+        <ion-card class="slideDiv" style="background-image: url(/assets/party.jpg);">
+          <div class="layer">
+            <div class="slideContent">
+              <p class="dataEvento">{{event.dataEvento}}</p>
+              <p class="nomeEvento">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p class="localEvento">{{event.localEvento}}</p>
+            </div>
+            <div class="iconDiv">
+              <ion-icon class="heartIcon" name="heart-empty"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+      <ion-slide class="maisEventos">
+        <h3>Mais Eventos <ion-icon id="icon" name="arrow-forward"></ion-icon>
+        </h3>
+      </ion-slide>
+    </ion-slides>
   <br>
-  <h1 id="title">Populares entre os seus amigos</h1>
+
+  <h3 id="title">Populares entre seus amigos</h3>
   <br>
 
-  <div class="container">
-    <div class="scroll" scrollX="true">
-      <div class="itemLista" *ngFor="let item of items">
-        <h1 class="titleEvent">{{item.title}}</h1>
-        <p>Festa massa no lugar tal e tal</p>
-        <p>Data tal</p>
-        <p>Endereco tal</p>
-      </div>
-    </div>
-  </div>
-
-</ion-content>
+  <ion-slides [options]="slider0pts" class="slides">
+    <ion-slide *ngFor="let event of events" class="slide">
+      <ion-card class="slideDiv" style="background-image: url(/assets/party.jpg);">
+        <div class="layer">
+          <div class="slideContent">
+            <p class="dataEvento">{{event.dataEvento}}</p>
+            <p class="nomeEvento">Lorem.</p>
+            <p class="localEvento">{{event.localEvento}}</p>
+          </div>
+          <div class="iconDiv">
+            <ion-icon class="heartIcon" name="heart-empty"></ion-icon>
+          </div>
+        </div>
+      </ion-card>
+    </ion-slide>
+    <ion-slide class="maisEventos">
+      <h3>Mais Eventos <ion-icon id="icon" name="arrow-forward"></ion-icon>
+      </h3>
+    </ion-slide>
+  </ion-slides>

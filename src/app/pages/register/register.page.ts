@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth_service/auth.service';
 import { NgForm, FormGroup, AbstractControl, AbstractControlDirective, FormBuilder, Validators } from '@angular/forms';
-import { AlertService } from 'src/app/services/alert.service';
+import { AlertService } from 'src/app/services/alert_service/alert.service';
 import { validateConfig } from '@angular/router/src/config';
 import { NavController } from '@ionic/angular';
-import { LoadingService } from 'src/app/services/loading.service';
+import { LoadingService } from 'src/app/services/loading_service/loading.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
+
 export class RegisterPage implements OnInit {
 
   formGroup: FormGroup;
@@ -19,6 +20,7 @@ export class RegisterPage implements OnInit {
   email: AbstractControl;
   password: AbstractControl;
   passwordConf: AbstractControl;
+  erroEmail: boolean;
 
   constructor(
     private authService: AuthService,
@@ -31,7 +33,7 @@ export class RegisterPage implements OnInit {
     this.formGroup = formBuilder.group({
       name: ['', Validators.compose([
         Validators.required,
-        Validators.pattern('^([a-zA-Z]{2,}\\s[a-zA-z]{1,}\'?-?[a-zA-Z]{2,}\\s?([a-zA-Z]{1,})?)')
+        Validators.pattern('^([a-zA-Z]{1,}\\s[a-zA-z]{1,}\'?-?[a-zA-Z]{1,}\\s?([a-zA-Z]{1,})?\\s?([a-zA-Z]{1,})?)')
       ])],
       birthDate: ['', Validators.required],
       email: ['', Validators.compose([
@@ -47,6 +49,8 @@ export class RegisterPage implements OnInit {
     this.email = this.formGroup.controls['email'];
     this.password = this.formGroup.controls['password'];
     this.passwordConf = this.formGroup.controls['passwordConf'];
+
+    this.erroEmail = false;
   }
 
   ngOnInit() {
@@ -67,12 +71,17 @@ export class RegisterPage implements OnInit {
             else this.alertService.presentToast("Falha no login. Usuário ou senha inválidos.");
           },
           error => {
+            this.lodingService.dismiss();
             this.alertService.presentToast("Falha no login. Tente Novamente.");
             console.log(error);
           }
         );
+        else if(response['_codRetRequest'] == 888)
+          this.lodingService.dismiss();
+          this.erroEmail = true;
       },
       error => {
+        this.lodingService.dismiss();
         this.alertService.presentToast("Falha no cadastro. Tente Novamente.");
         console.log(error);
       }
@@ -90,5 +99,9 @@ export class RegisterPage implements OnInit {
         };
       }
     }
+  }
+
+  limparErroEmail(){
+    this.erroEmail = false;
   }
 }

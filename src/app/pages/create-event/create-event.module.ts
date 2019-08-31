@@ -5,12 +5,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { RegisterPage } from './register.page';
+import { CreateEventPage } from './create-event.page';
+import { Browser } from 'protractor';
+import { BrowserModule } from '@angular/platform-browser';
 
 const routes: Routes = [
   {
     path: '',
-    component: RegisterPage
+    component: CreateEventPage
   }
 ];
 
@@ -20,8 +22,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
-  declarations: [RegisterPage]
+  declarations: [CreateEventPage]
 })
-export class RegisterPageModule {}
+export class CreateEventPageModule {}

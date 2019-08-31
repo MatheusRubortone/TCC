@@ -14,6 +14,9 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { DatePipe } from '@angular/common';
 import { Http, HttpModule } from '@angular/http';
 import { Moment } from 'moment';
+import { FormsModule } from '@angular/forms';
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +25,9 @@ import { Moment } from 'moment';
             IonicModule.forRoot(), 
             AppRoutingModule,
             HttpClientModule,
-            HttpModule],
+            HttpModule,
+            BrowserModule,
+            FormsModule ],
   providers: [
     StatusBar,
     SplashScreen,

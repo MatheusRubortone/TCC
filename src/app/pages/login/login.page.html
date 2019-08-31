@@ -1,4 +1,4 @@
-<ion-content color="primary">
+<ion-content>
   <div style="margin-top: 10%;">
     <h1 style="font-size: 80px; font-family: 'Chewy Regular', sans-serif">Don't Go<br>Alone</h1>
   </div>
@@ -6,14 +6,14 @@
   <div class="form">
     <form [formGroup]="formGroup" #form="ngForm" (ngSubmit)="login(form)" method="get">
 
-      <ion-item color="primary" class="formulario">
+      <ion-item color="none" class="formulario" lines="none">
         <ion-label class="label" position="floating">Email</ion-label>
         <ion-input type="email" formControlName="email"></ion-input>
       </ion-item>
       <p class="error" *ngIf="email.hasError('required') && email.touched">É necessário informar o email.</p>
       <p class="error" *ngIf="email.hasError('pattern') && email.dirty">Email inválido.</p>
 
-      <ion-item color="primary" class="formulario">
+      <ion-item color="none" class="formulario" lines="none">
         <ion-label class="label" position="floating">Senha</ion-label>
         <ion-input type="password" formControlName="password"></ion-input>
       </ion-item>
@@ -24,7 +24,7 @@
 
       <ion-button class="botao" color="light" expand="block" type="submit" [disabled]="!formGroup.valid">Entrar</ion-button>
 
-      <p text-center>Ou</p>
+      <p text-center class="ou">Ou</p>
 
       <ion-button class="botao" color="light" expand="block" routerLink="/register" routerDirection="forward">Criar Conta</ion-button>
       <br>

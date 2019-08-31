@@ -63,7 +63,9 @@
       "id": "cordova-plugin-advanced-http@^2.1.1"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "OKHTTP_VERSION": "3.10.0"
+    }
   },
   "cordova-plugin-file": {
     "source": {

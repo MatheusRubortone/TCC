@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { RegisterPage } from './register.page';
+import { ConfirmedEventsPage } from './confirmed-events.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: RegisterPage
+    component: ConfirmedEventsPage
   }
 ];
 
@@ -19,9 +19,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes),
-    ReactiveFormsModule,
+    RouterModule.forChild(routes)
   ],
-  declarations: [RegisterPage]
+  declarations: [ConfirmedEventsPage]
 })
-export class RegisterPageModule {}
+export class ConfirmedEventsPageModule {}

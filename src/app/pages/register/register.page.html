@@ -1,42 +1,43 @@
-<ion-content color="primary">
+<ion-content>
 
   <br><br>
 
-  <h1>Criar conta</h1>
+  <h1 class="title">Criar conta</h1>
 
   <br><br>
 
   <div class="form">
     <form [formGroup]="formGroup" #form="ngForm" (ngSubmit)="register(form)" method="post">
 
-      <ion-item color="primary" class="formulario">
+      <ion-item color="none" class="formulario" lines="none">
         <ion-label class="label" position="floating">Nome Completo</ion-label>
         <ion-input ngModel type="text" formControlName="name"></ion-input>
       </ion-item>
       <p class="error" *ngIf="(name.hasError('required') || name.hasError('pattern')) && name.touched">É necessário informar o nome completo.</p>
 
-      <ion-item color="primary" class="formulario">
+      <ion-item color="none" class="formulario" lines="none">
         <ion-label class="label" position="floating">Data de Nascimento</ion-label>
         <ion-datetime displayFormat="DD MMMM, YYYY" 
         monthNames="Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro"
         ngModel formControlName="birthDate"></ion-datetime>
       </ion-item>
-      <p class="error" *ngIf="birthDate.hasError('required') && birthDate.touched">É necessário a data de nascimento.</p>
+      <p class="error" *ngIf="birthDate.hasError('required') && birthDate.touched">É necessário informar a data de nascimento.</p>
 
-      <ion-item color="primary" class="formulario">
+      <ion-item color="none" class="formulario" lines="none">
         <ion-label class="label" position="floating">Email</ion-label>
-        <ion-input ngModel type="email" formControlName="email"></ion-input>
+        <ion-input ngModel type="email" formControlName="email" (input)='limparErroEmail()'></ion-input>
       </ion-item>
       <p class="error" *ngIf="email.hasError('required') && email.touched">É necessário informar o email.</p>
       <p class="error" *ngIf="email.hasError('pattern') && email.dirty">Email inválido.</p>
+      <p class="error" *ngIf="erroEmail">Já existe uma conta cadastrada com este email.</p>
 
-      <ion-item color="primary" class="formulario">
+      <ion-item color="none" class="formulario" lines="none">
         <ion-label class="label" position="floating">Senha</ion-label>
         <ion-input ngModel type="password" formControlName="password"></ion-input>
       </ion-item>
       <p class="error" *ngIf="password.hasError('required') && password.touched">É necessário informar a senha.</p>
 
-      <ion-item color="primary" class="formulario">
+      <ion-item color="none" class="formulario" lines="none">
         <ion-label class="label" position="floating">Confirme a senha</ion-label>
         <ion-input ngModel type="password" formControlName="passwordConf"></ion-input>
       </ion-item>

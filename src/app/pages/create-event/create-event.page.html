@@ -1,0 +1,120 @@
+<ion-content>
+
+  <br><br>
+
+  <h1 class="title">Novo Evento</h1>
+
+  <br>
+
+  <div class="form">
+    <form [formGroup]="formGroup" #form="ngForm" (ngSubmit)="createEvent(form)" method="post">
+
+      <ion-item color="none" class="formulario" lines="none">
+        <ion-label class="label" position="floating">Nome do Evento</ion-label>
+        <ion-input ngModel type="text" formControlName="eventName"></ion-input>
+      </ion-item>
+      <p class="error" *ngIf="eventName.hasError('required') && eventName.touched">É necessário informar o nome do
+        evento.</p>
+
+      <ion-item color="none" class="formulario" lines="none">
+        <ion-label class="label" position="floating">Data do Evento</ion-label>
+        <ion-datetime displayFormat="DD MMMM, YYYY"
+          monthNames="Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro"
+          ngModel max="2030-12-31" min={{data}} formControlName="eventDate"></ion-datetime>
+      </ion-item>
+      <p class="error" *ngIf="eventDate.hasError('required') && eventDate.touched">É necessário informar a data do
+        evento.</p>
+
+      <ion-row class="hora">
+        <ion-col col-6>
+          <ion-item color="none" class="formulario" lines="none">
+            <ion-label class="label" position="floating">Início</ion-label>
+            <ion-datetime displayFormat="HH:mm" ngModel formControlName="eventStart"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item color="none" class="formulario" lines="none">
+            <ion-label class="label" position="floating">Término</ion-label>
+            <ion-datetime displayFormat="HH:mm" ngModel formControlName="eventEnd"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <p class="error" *ngIf="(eventStart.hasError('required') || eventEnd.hasError('required')) &&
+                (eventStart.touched || eventEnd.touched)">É necessário informar as datas de início e término do evento.
+      </p>
+
+      <ion-item color="none" class="formulario" lines="none">
+        <ion-label class="label" position="floating">Local do evento</ion-label>
+        <ion-input ngModel type="text" formControlName="eventPlace"></ion-input>
+      </ion-item>
+      <p class="error" *ngIf="eventPlace.hasError('required') && eventPlace.touched">É necessário informar o local onde
+        o evento acontecerá.</p>
+
+      <ion-row class="hora">
+        <ion-col size="7">
+          <ion-item color="none" class="formulario" lines="none">
+            <ion-label class="label" position="floating">CEP</ion-label>
+            <ion-input ngModel type="number" formControlName="eventCep" (ionBlur)="getEndereco($event)"
+              (keyup)="onKeyUp($event)"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="5">
+          <ion-item color="none" class="formulario" lines="none">
+            <ion-label class="label" position="floating">Número</ion-label>
+            <ion-input ngModel type="number" formControlName="eventAddNumber"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <p class="error" *ngIf="eventCep.hasError('required') && eventCep.touched">É necessário informar o CEP.</p>
+      <p class="error" *ngIf="eventCep.hasError('pattern') && eventCep.touched">CEP inválido.</p>
+      <p class="error" *ngIf="eventAddNumber.hasError('required') && eventAddNumber.touched">É necessário informar o
+        número.</p>
+
+
+      <ion-item color="none" class="formulario" lines="none">
+        <ion-label class="label" position="floating">Endereço</ion-label>
+        <ion-input ngModel type="text" formControlName="eventAddress"></ion-input>
+      </ion-item>
+      <p class="error" *ngIf="eventAddress.hasError('required') && eventAddress.touched">É necessário informar o
+        endereço.
+      </p>
+
+      <ion-item color="none" class="formulario" lines="none">
+        <ion-label class="label" position="floating">Bairro</ion-label>
+        <ion-input ngModel type="text" formControlName="eventNbhd"></ion-input>
+      </ion-item>
+      <p class="error" *ngIf="eventNbhd.hasError('required') && eventNbhd.touched">É necessário informar o bairro.</p>
+
+      <ion-item color="none" class="formulario" lines="none">
+        <ion-label class="label" position="floating">Cidade</ion-label>
+        <ion-input ngModel type="text" formControlName="eventCity"></ion-input>
+      </ion-item>
+      <p class="error" *ngIf="eventCity.hasError('required') && eventCity.touched">É necessário informar a cidade.</p>
+
+      <ion-item color="none" class="formulario" lines="none">
+        <ion-label class="label" position="floating">UF</ion-label>
+        <ion-input ngModel type="text" formControlName="eventUf"></ion-input>
+      </ion-item>
+      <p class="error" *ngIf="eventUf.hasError('required') && eventUf.touched">É necessário informar a UF.</p>
+
+      <br>
+
+      <ion-item color="none" id="descItem" class="formulario" lines="none">
+        <ion-label class="label" id="labelDesc" position="stacked">Descrição do evento</ion-label>
+        <ion-textarea id="desc" ngModel type="text" maxlength="300" [(ngModel)]="descLength"
+          formControlName="eventDesc"></ion-textarea>
+        <p id="txtLength">{{descLength.length}}/300</p>
+      </ion-item>
+      <p class="error" *ngIf="eventDesc.hasError('required') && eventDesc.touched">É necessário informar a descrição do
+        evento.</p>
+
+      <br>
+
+      <ion-button class="botao" color="light" expand="block" type="submit" [disabled]="!formGroup.valid">Criar evento
+      </ion-button>
+
+    </form>
+  </div>
+  <br>
+
+</ion-content>
