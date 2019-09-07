@@ -1,14 +1,32 @@
-export class Evento{
+import { UtilService } from '../services/util_service/util.service';
 
-    constructor(nome: string, data: string, localEvento: string){
-        this.nomeEvento = nome;
-        this.dataEvento = data;
-        this.localEvento = localEvento;
+export class Evento {
+
+    constructor(id: string, title: string, ownerId: string, description: string, startDate: string, endDate: string, place: string, address: string, cep: string, private utilSvc: UtilService) {
+        this.id = id;
+        this.title = title;
+        this.ownerId = ownerId;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.place = place;
+        this.address = address;
+        this.cep = cep;
+        this.starDateExtenso = this.utilSvc.montarDataExtenso(startDate);
+        this.diaInicioEvento = this.utilSvc.getDiaEvento(startDate);
+        this.mesResEvento = this.utilSvc.getMesResPeloNumero(this.startDate.split(" ")[0].split("/")[1]);
     }
 
     id: string;
-    nomeEvento: string;
-    dataEvento: string;
-    descEvento: string;
-    localEvento: string;
+    title: string;
+    ownerId: string;
+    description: string;
+    startDate: string;
+    endDate: string;
+    place: string;
+    address: string;
+    cep: string;
+    starDateExtenso: string;
+    diaInicioEvento: string;
+    mesResEvento: string;
 }

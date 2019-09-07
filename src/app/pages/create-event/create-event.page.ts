@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, NgForm } from '@angular/forms';
 import { EventService } from 'src/app/services/event_service/event.service';
+import { UserService } from 'src/app/services/user_service/user.service';
+import { AlertService } from 'src/app/services/alert_service/alert.service';
+import { LoadingService } from 'src/app/services/loading_service/loading.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-event',
@@ -11,9 +15,8 @@ export class CreateEventPage implements OnInit {
 
   formGroup: FormGroup;
   eventName: AbstractControl;
-  eventDate: AbstractControl;
-  eventStart: AbstractControl;
-  eventEnd: AbstractControl;
+  eventStartDate: AbstractControl;
+  eventEndDate: AbstractControl;
   eventCep: AbstractControl;
   eventAddress: AbstractControl;
   eventAddNumber: AbstractControl;
@@ -27,17 +30,20 @@ export class CreateEventPage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private eventService: EventService
+    private eventService: EventService,
+    private userSvc: UserService,
+    private alertSvc: AlertService,
+    private loadSvc: LoadingService,
+    private navCtrl: NavController
   ) {
 
     this.formGroup = formBuilder.group({
       eventName: ['', Validators.required],
-      eventDate: ['', Validators.required],
-      eventStart: ['', Validators.required],
-      eventEnd: ['', Validators.required],
+      eventEndDate: ['', Validators.required],
+      eventStartDate: ['', Validators.required],
       eventCep: ['', Validators.compose([
         Validators.required,
-        Validators.pattern('[0-9]{5}[\\d]{2}')
+        Validators.pattern('[0-9]{6}[\\d]{2}')
       ])],
       eventAddress: ['', Validators.required],
       eventAddNumber: ['', Validators.required],
@@ -46,12 +52,11 @@ export class CreateEventPage implements OnInit {
       eventDesc: ['', Validators.required],
       eventNbhd: ['', Validators.required],
       eventPlace: ['', Validators.required]
-    });
+    }, { validator: this.compararDatas('eventStartDate', 'eventEndDate') });
 
     this.eventName = this.formGroup.controls['eventName'];
-    this.eventDate = this.formGroup.controls['eventDate'];
-    this.eventStart = this.formGroup.controls['eventStart'];
-    this.eventEnd = this.formGroup.controls['eventEnd'];
+    this.eventStartDate = this.formGroup.controls['eventStartDate'];
+    this.eventEndDate = this.formGroup.controls['eventEndDate'];
     this.eventCep = this.formGroup.controls['eventCep'];
     this.eventAddress = this.formGroup.controls['eventAddress'];
     this.eventAddNumber = this.formGroup.controls['eventAddNumber'];
@@ -73,7 +78,27 @@ export class CreateEventPage implements OnInit {
   }
 
   createEvent(form: NgForm) {
-    alert(form.value.eventDesc);
+    this.loadSvc.presentLoading();
+
+    var dtInicioEvento: string = form.value.eventStartDate.toLocaleString().split("T");
+    var dtFimEvento: string = form.value.eventEndDate.toLocaleString().split("T");
+
+    var dtHrInicioFormat = dtInicioEvento[0] + " " + dtInicioEvento[1].substring(0, 5);
+    var dtHrFimFormat = dtFimEvento[0] + " " + dtFimEvento[1].substring(0, 5);
+
+    var evtAddress = form.value.eventAddress + "," + form.value.eventAddNumber + "," + form.value.eventNbhd + "," + form.value.eventCity + "," + form.value.eventUf;
+
+    this.eventService.registerEvent(form.value.eventName, this.userSvc.getUId(), form.value.eventDesc, dtHrInicioFormat, dtHrFimFormat, form.value.eventPlace, evtAddress, form.value.eventCep)
+      .subscribe(data => {
+        console.log(data);
+        let response = data.json();
+        this.loadSvc.dismiss();
+        if (response._codRetRequest == 1) {
+          this.alertSvc.presentToast("Evento '" + form.value.eventName + "' criado com sucesso!");
+          this.navCtrl.back();
+        }
+        else this.alertSvc.presentToast("Erro na criação do evento. Tente novamente");
+      });
   }
 
   async getEndereco(ev) {
@@ -114,6 +139,23 @@ export class CreateEventPage implements OnInit {
     let regExp = new RegExp('^[0-9?]+$');
     if (!regExp.test(newValue)) {
       event.target.value = newValue.slice(0, -1);
+    }
+  }
+
+  goBack() {
+    this.navCtrl.back();
+  }
+
+  compararDatas(start: string, end: string) {
+    return (group: FormGroup): { [key: string]: any } => {
+      let startHour = group.controls[start];
+      let endHour = group.controls[end];
+
+      if (startHour.value >= endHour.value) {
+        return {
+          horaInvalida: true
+        };
+      }
     }
   }
 

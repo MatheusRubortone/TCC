@@ -23,19 +23,19 @@ export class LoginPage implements OnInit {
     private alertService: AlertService,
     private formBuilder: FormBuilder,
     private loadingService: LoadingService
-  ) { 
+  ) {
 
     this.formGroup = formBuilder.group({
-      email:['', Validators.compose([
+      email: ['', Validators.compose([
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
       ])],
-      password:['', Validators.required]
+      password: ['', Validators.required]
     });
 
     this.email = this.formGroup.controls['email'];
     this.password = this.formGroup.controls['password'];
-    
+
   }
 
   ngOnInit() {
@@ -43,7 +43,7 @@ export class LoginPage implements OnInit {
 
   ionViewWillEnter() {
     this.authService.getToken().then(() => {
-      if(this.authService.isLoggedIn) {
+      if (this.authService.isLoggedIn) {
         this.navCtrl.navigateRoot('/tabs');
       }
     });
@@ -56,9 +56,9 @@ export class LoginPage implements OnInit {
         console.log(data);
         let response = data.json();
         this.loadingService.dismiss();
-        if(response._codRetRequest == 1) this.navCtrl.navigateRoot('/tabs');
-        if(response._codRetRequest == 0) this.alertService.presentToast("Usuário ou senha incorretos, tente novamente.");
-        else if(response._codRetRequest == 999) this.alertService.presentToast("Ocorreu um erro no login. Tente novamente.");
+        if (response._codRetRequest > 0) this.navCtrl.navigateRoot('/tabs');
+        if (response._codRetRequest == 0) this.alertService.presentToast("Usuário ou senha incorretos, tente novamente.");
+        else if (response._codRetRequest == 999) this.alertService.presentToast("Ocorreu um erro no login. Tente novamente.");
 
       },
       error => {

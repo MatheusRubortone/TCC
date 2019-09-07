@@ -1,0 +1,53 @@
+<ion-content>
+  <div class="eventCover" style="background-image: url(/assets/party.png);"></div>
+  <div class="info">
+    <div class="data">
+      <h2>{{event.mesResEvento}}</h2><br>
+      <h2>{{event.diaInicioEvento}}</h2>
+    </div>
+    <div class="title">
+      <h2>{{event.title}}</h2><br>
+      <h4>{{event.place}}</h4>
+    </div>
+    <div class="fullDate">
+      <p id="fulldate">{{event.startDate}} - {{event.endDate}}</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="confirm">
+      <ion-icon name="add"></ion-icon>
+      <p>Eu vou</p>
+    </div>
+    <div class="save">
+      <ion-icon name="heart-empty"></ion-icon>
+      <p>Salvar</p>
+    </div>
+    <div class="invite">
+      <ion-icon name="person-add"></ion-icon>
+      <p>Convidar</p>
+    </div>
+  </div>
+  <div class="people">
+    <div class="pics">
+        <ion-icon name="contact"></ion-icon>
+    </div>
+    <div class="text">
+      <p>Julia, Pedro e mais 40 pessoas irão.</p>
+    </div>
+    <div class="icone">
+      <ion-icon name="arrow-forward"></ion-icon>
+    </div>
+  </div>
+  <div class="desc">
+    <h2>Descrição</h2>
+    <p>{{event.description}}</p>
+  </div>
+  <div class="location">
+    <div class="locationInfo">
+      <h3>{{event.place}}</h3><br>
+      <h4>{{ruaEvento}}, {{numEvento}} - {{bairroEvento}}</h4><br>
+      <h5>{{cidadeEvento}}, {{estadoEvento}}</h5>
+    </div>
+    <div #mapElement class="map"></div>
+  </div>
+</ion-content>

@@ -17,44 +17,41 @@
         evento.</p>
 
       <ion-item color="none" class="formulario" lines="none">
-        <ion-label class="label" position="floating">Data do Evento</ion-label>
-        <ion-datetime displayFormat="DD MMMM, YYYY"
-          monthNames="Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro"
-          ngModel max="2030-12-31" min={{data}} formControlName="eventDate"></ion-datetime>
-      </ion-item>
-      <p class="error" *ngIf="eventDate.hasError('required') && eventDate.touched">É necessário informar a data do
-        evento.</p>
-
-      <ion-row class="hora">
-        <ion-col col-6>
-          <ion-item color="none" class="formulario" lines="none">
-            <ion-label class="label" position="floating">Início</ion-label>
-            <ion-datetime displayFormat="HH:mm" ngModel formControlName="eventStart"></ion-datetime>
-          </ion-item>
-        </ion-col>
-        <ion-col col-6>
-          <ion-item color="none" class="formulario" lines="none">
-            <ion-label class="label" position="floating">Término</ion-label>
-            <ion-datetime displayFormat="HH:mm" ngModel formControlName="eventEnd"></ion-datetime>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <p class="error" *ngIf="(eventStart.hasError('required') || eventEnd.hasError('required')) &&
-                (eventStart.touched || eventEnd.touched)">É necessário informar as datas de início e término do evento.
-      </p>
-
-      <ion-item color="none" class="formulario" lines="none">
         <ion-label class="label" position="floating">Local do evento</ion-label>
         <ion-input ngModel type="text" formControlName="eventPlace"></ion-input>
       </ion-item>
       <p class="error" *ngIf="eventPlace.hasError('required') && eventPlace.touched">É necessário informar o local onde
         o evento acontecerá.</p>
 
+      <ion-item color="none" class="formulario" lines="none">
+        <ion-label class="label" position="floating">De</ion-label>
+        <ion-datetime displayFormat="DD MMMM, YYYY HH:mm"
+          monthNames="Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez" ngModel max="2030-12-31" min={{data}}
+          formControlName="eventStartDate"></ion-datetime>
+      </ion-item>
+      <p class="error" *ngIf="eventStartDate.hasError('required') && eventStartDate.touched">É necessário informar a
+        data de início do
+        evento.</p>
+
+      <ion-item color="none" class="formulario" lines="none">
+        <ion-label class="label" position="floating">Até</ion-label>
+        <ion-datetime displayFormat="DD MMMM, YYYY HH:mm"
+          monthNames="Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez" ngModel max="2030-12-31" min={{data}}
+          formControlName="eventEndDate"></ion-datetime>
+      </ion-item>
+      <p class="error" *ngIf="eventEndDate.hasError('required') && eventEndDate.touched">É necessário informar a data do
+        fim do
+        evento.</p>
+      <p class="error" *ngIf="formGroup.hasError('horaInvalida') && (eventStartDate.valid && eventEndDate.valid)">A hora
+        de
+        término não pode ser anterior à hora de início.
+      </p>
+
       <ion-row class="hora">
         <ion-col size="7">
           <ion-item color="none" class="formulario" lines="none">
             <ion-label class="label" position="floating">CEP</ion-label>
-            <ion-input ngModel type="number" formControlName="eventCep" (ionBlur)="getEndereco($event)"
+            <ion-input ngModel type="string" formControlName="eventCep" (ionBlur)="getEndereco($event)"
               (keyup)="onKeyUp($event)"></ion-input>
           </ion-item>
         </ion-col>
@@ -110,7 +107,11 @@
 
       <br>
 
-      <ion-button class="botao" color="light" expand="block" type="submit" [disabled]="!formGroup.valid">Criar evento
+      <ion-button class="botao" color="primary" expand="block" type="submit" [disabled]="!formGroup.valid">Criar evento
+      </ion-button>
+
+      <br>
+      <ion-button class="botao" color="light" expand="block" (click)="goBack()">Cancelar
       </ion-button>
 
     </form>

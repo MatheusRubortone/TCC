@@ -1,0 +1,202 @@
+*{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+div{
+    //border: 1px solid red;
+}
+
+.eventCover{
+    height: 30%;
+    width: 100%;
+    background-size: cover;
+    background-position: center center;
+}
+
+.info{
+    width: 100%;
+    border-bottom: 0.5px solid #9400d3;
+    padding-bottom: 3%;
+
+    .data{
+        margin: 0;
+        float: left;
+        height: 70%;
+        width: 25%;
+        text-align: center;
+        padding-top: 4%;
+        padding-left: 4%;
+    }
+
+    .data> h2{
+        margin: 0 auto;
+        vertical-align: center;
+        display: inline-block;
+        font-size: 6vw;
+        color: #47525E;
+    }
+
+    .title{
+        margin: 0;
+        height: 70%;
+        width: 75%;
+        display: inline-block;
+        padding-top: 4%;
+    }
+
+    .title > h2{
+        display: inline-block;
+        margin: 0 auto;
+        font-size: 6vw;
+        color: #47525E;
+        font-weight: bold;
+    }
+
+    .title > h4{
+        display: inline-block;
+        margin: 0 auto;
+        font-size: 5vw;
+        color: #47525E;
+    }
+    
+    .fullDate{
+        margin-top: 5%;
+        width: 100%;
+        padding: auto;
+        color: #47525E;
+
+        #fulldate{
+            width:100%;
+            display: inline-block;
+            margin: auto;
+            vertical-align: center;
+            font-size: 4.5vw;
+            text-align: center;
+        }
+    }
+}
+
+.actions{
+    height: 12%;
+    width: 100%;
+    border-bottom: 1px solid #9400d3;
+
+    .confirm{
+        display: inline-block;
+        height: 100%;
+        width: 33%;
+        text-align: center;
+        padding-top: 4%;
+        font-size: 2vw;
+    }
+
+    .save{
+        display: inline-block;
+        height: 100%;
+        width: 34%;
+        text-align: center;
+        padding-top: 4%;
+        font-size: 2vw;
+    }
+
+    .invite{
+        display: inline-block;
+        height: 100%;
+        width: 33%;
+        text-align: center;
+        padding-top: 4%;
+        font-size: 2vw;
+    }
+
+    ion-icon{
+        font-size: 9vw;
+    }
+
+    p{
+        margin: 0;
+        font-size: 4.5vw;
+        color: #47525E;
+    }
+}
+
+.people{
+    height: 7%;
+    width: 100%;
+    border-bottom: 1px solid #9400d3;
+
+    .pics{
+        width: 10%;
+        height: 100%;
+        float: left;
+    }
+
+    .text{
+        float: left;
+        width: 80%;
+        height: 100%;
+        text-align: center;
+        font-size: 4vw;
+    }
+
+    .icone{
+        display: inline-block;
+        width: 10%;
+        height: 100%;
+        text-align: left;
+    }
+}
+
+.desc{
+    height: auto;
+    width: 100%;
+    padding: 2%;
+    border-bottom: 1px solid #9400d3;
+    padding-left: 5%;
+
+    h2{
+        font-size: 6vw;
+        color: #47525E;
+    }
+
+    p{
+        font-size: 4.5vw;
+        color: #47525E;
+    }
+}
+
+.location{
+    height: 50%;
+    width: 100%;
+    padding: 5%;
+
+    .locationInfo{
+        width: 100%;
+        padding-bottom: 1%;
+    }
+
+    .locationInfo > h5{
+        display: inline-block;
+        margin: 0;
+        font-size: 4vw;
+        color: #47525E;
+    }
+
+    .locationInfo > h4{
+        display: inline-block;
+        margin: 0;
+        font-size: 5vw;
+        color: #47525E;
+    }
+
+    .locationInfo > h3{
+        display: inline-block;
+        margin: 0;
+        font-size: 6vw;
+        color: #47525E;
+    }
+
+    .map{
+        height: 70%;
+        width: 100%;
+    }
+}

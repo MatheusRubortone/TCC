@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { DataResolverService } from './resolver/data-resolver.service';
 
 const routes: Routes = [
   //{ path: '', loadChildren: './pages/tabs/tabs.module#TabsPageModule' },
@@ -8,10 +9,8 @@ const routes: Routes = [
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
   { path: '', loadChildren: './pages/tabs/tabs.module#TabsPageModule' },
-  { path: 'saved-events', loadChildren: './pages/saved-events/saved-events.module#SavedEventsPageModule' },
-  { path: 'confirmed-events', loadChildren: './pages/confirmed-events/confirmed-events.module#ConfirmedEventsPageModule' },
-  { path: 'created-events', loadChildren: './pages/created-events/created-events.module#CreatedEventsPageModule' },
   { path: 'create-event', loadChildren: './pages/create-event/create-event.module#CreateEventPageModule' },
+  { path: 'event-desc/:id', resolve:{special: DataResolverService}, loadChildren: './pages/event-desc/event-desc.module#EventDescPageModule' },
 ];
 
 @NgModule({

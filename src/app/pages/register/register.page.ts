@@ -67,7 +67,7 @@ export class RegisterPage implements OnInit {
           data => {
             let response = data.json();
             this.lodingService.dismiss();
-            if (response._codRetRequest == 1) this.navCtrl.navigateRoot('/tabs');
+            if (response._codRetRequest > 0) this.navCtrl.navigateRoot('/tabs');
             else this.alertService.presentToast("Falha no login. Usuário ou senha inválidos.");
           },
           error => {

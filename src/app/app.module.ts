@@ -14,7 +14,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { DatePipe } from '@angular/common';
 import { Http, HttpModule } from '@angular/http';
 import { Moment } from 'moment';
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'; 
 
 
 

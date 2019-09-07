@@ -17,21 +17,35 @@ export class EventService {
     private env: EnvService
   ) { }
 
-  mockEvents() {
-    let eventos = []
-    for (var i = 1; i < 6; i++) {
-      eventos.push(new Evento("Evento teste abcde 12345 " + i, "0" + i + "/08/2019", "Bar Exemplo, São Paulo, SP"))
-    }
-
-    return eventos;
+  registerEvent(title: string, idOwner: string, description: string, startDate: string, endDate: string, place: string, address: string, cep: string) {
+    return this.http.post(this.env.API_URL + '/event/register',
+      { title: title, idOwner: idOwner, description: description, startDate: startDate, endDate: endDate, place: place, address: address, cep: cep }
+    )
   }
+
+  // mockEvents() {
+  //   let eventos = []
+  //   for (var i = 1; i < 6; i++) {
+  //     eventos.push(new Evento("Evento teste abcde 12345 " + i, "0" + i + "/08/2019", "Bar Exemplo, São Paulo, SP"))
+  //   }
+
+  //   return eventos;
+  // }
 
   getEnderecoPorCep(cep: string) {
     return this.http.get(this.env.API_CPF_URL.replace("{cep}", cep)).map(res => {
-        return res.json();
+      return res.json();
     },
-    err=>{
+      err => {
         return "erro";
-    })
+      })
+  }
+
+  getCoordenadas(cep: string){
+    return this.http.get(this.env.API_GEO_URL.replace("{cep}", cep));
+  }
+
+  getEventsByOwner(idUsuario: string){
+    return this.http.post(this.env.API_URL+'/Event/EventsByOwner', {userID: idUsuario});
   }
 }

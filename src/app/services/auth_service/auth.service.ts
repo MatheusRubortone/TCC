@@ -8,6 +8,7 @@ import { AlertService } from '../alert_service/alert.service';
 import { DatePipe } from '@angular/common';
 import { Http } from '@angular/http';
 import * as moment from 'moment';
+import { UserService } from '../user_service/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,7 @@ export class AuthService {
     private env: EnvService,
     private alertService: AlertService,
     public datepipe: DatePipe,
+    public userService: UserService
   ) { }
 
   login(email: String, password: String) {
@@ -33,8 +35,11 @@ export class AuthService {
       { email: email, password: password }
     ).pipe(
       tap(token => {
-        console.log(token);
-        this.storage.setItem('token', token)
+        console.log(token["_body"]);
+        let id = JSON.parse(token["_body"]);
+        console.log("id: " + id._codRetRequest);
+        this.userService.setUId(id._codRetRequest);
+        this.storage.setItem('token', id._codRetRequest)
           .then(
             () => {
               console.log('Token Stored');
@@ -44,7 +49,7 @@ export class AuthService {
         this.token = token;
         this.isLoggedIn = true;
         return token;
-      }),
+      })
     );
   }
 

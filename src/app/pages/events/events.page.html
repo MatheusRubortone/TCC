@@ -19,12 +19,15 @@
   </ion-segment-button>
 </ion-segment>
 <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
   <ion-slides #slides (ionSlideDidChange)="slideChanged()" class="slides">
     <ion-slide class="slide">
-      <div class="divList">
+      <!-- <div class="divList">
         <ion-list class="list">
           <br>
-          <div class="card" style="background-image: url(/assets/party.jpg);" *ngFor="let event of events">
+          <div class="card" style="background-image: url(/assets/party.png);" *ngFor="let event of events">
             <div class="layer">
               <div class="info">
                 <div class="card-toptitle">
@@ -43,13 +46,13 @@
             </div>
           </div>
         </ion-list>
-      </div>
+      </div> -->
     </ion-slide>
     <ion-slide>
-      <div class="divList">
+      <!-- <div class="divList">
         <ion-list class="list">
           <br>
-          <div class="card" style="background-image: url(/assets/party.jpg);" *ngFor="let event of events">
+          <div class="card" style="background-image: url(/assets/party.png);" *ngFor="let event of events">
               <div class="layer">
                 <div class="info">
                   <div class="card-toptitle">
@@ -67,18 +70,45 @@
                 </div>
               </div>
           </div>
+      </ion-list>
+      </div> -->
+    </ion-slide>
+    <ion-slide>
+    </ion-slide>
+    <ion-slide>
+      <ion-spinner></ion-spinner>
+      <div class="divList">
+        <ion-list class="list">
+          <br>
+          <div class="card" style="background-image: url(/assets/party.png);" *ngFor="let event of createdEvents"
+            (click)="eventOnClick(event)">
+            <div class="layer">
+              <div class="info">
+                <div class="card-toptitle">
+                  <p class="p-toptitle">{{event.starDateExtenso}}</p>
+                </div>
+                <div class="card-title">
+                  <p class="p-title">{{event.title}}</p>
+                </div>
+                <div class="card-subtitle">
+                  <p class="p-subtitle">{{event.place}}</p>
+                </div>
+              </div>
+              <div class="icon">
+                <ion-icon class="heartIcon" name="heart-empty"></ion-icon>
+              </div>
+            </div>
+          </div>
         </ion-list>
       </div>
-    </ion-slide>
-    <ion-slide>
-      third
-    </ion-slide>
-    <ion-slide>
     </ion-slide>
   </ion-slides>
 
   <ion-fab slot="fixed" horizontal="end" vertical="bottom">
-    <ion-fab-button><ion-icon class="heartIcon" name="add" style="font-size: 350%;" routerLink="/create-event" routerDirection="root"></ion-icon></ion-fab-button>
+    <ion-fab-button>
+      <ion-icon class="heartIcon" name="add" style="font-size: 350%;" routerLink="/create-event" routerDirection="root">
+      </ion-icon>
+    </ion-fab-button>
   </ion-fab>
 
 </ion-content>

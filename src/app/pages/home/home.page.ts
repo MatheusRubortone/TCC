@@ -4,6 +4,7 @@ import { routerNgProbeToken } from '@angular/router/src/router_module';
 import { Evento } from 'src/app/models/event';
 import { EventService } from 'src/app/services/event_service/event.service';
 import { UtilService } from 'src/app/services/util_service/util.service';
+import { UserService } from 'src/app/services/user_service/user.service';
 
 @Component({
   selector: 'app-home',
@@ -17,13 +18,15 @@ export class HomePage implements OnInit {
 
   constructor(private router: Router,
               private eventService: EventService,
-              private utilService: UtilService) { }
+              private utilService: UtilService,
+              private userService: UserService) { }
 
   ngOnInit() {
-    this.events = this.eventService.mockEvents();
-    this.events.forEach(element => {
-      element.dataEvento = this.utilService.montarDataExtenso(element.dataEvento);
-    });
+    // this.events = this.eventService.mockEvents();
+    // this.events.forEach(element => {
+    //   element.dataEvento = this.utilService.montarDataExtenso(element.dataEvento);
+    // console.log(this.userService.getUId());
+    // });
   }
 
 
