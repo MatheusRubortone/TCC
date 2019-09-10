@@ -1,13 +1,13 @@
-<ion-content>
+<ion-content >
 
   <br><br>
 
-  <h1 class="title">Novo Evento</h1>
+  <h1 class="title">Editar Evento</h1>
 
   <br>
 
   <div class="form">
-    <form [formGroup]="formGroup" #form="ngForm" (ngSubmit)="createEvent(form)" method="post">
+    <form [formGroup]="formGroup" #form="ngForm" (ngSubmit)="editarEventoClick(form)" method="post">
 
       <ion-item color="none" class="formulario" lines="none">
         <ion-label class="label" position="floating">Nome do Evento</ion-label>
@@ -27,7 +27,7 @@
         <ion-label class="label" position="floating">De</ion-label>
         <ion-datetime displayFormat="DD MMMM, YYYY HH:mm"
           monthNames="Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez" ngModel max="2030-12-31" min={{data}}
-          formControlName="eventStartDate"></ion-datetime>
+          formControlName="eventStartDate" [(ngModel)]="dtInicio"></ion-datetime>
       </ion-item>
       <p class="error" *ngIf="eventStartDate.hasError('required') && eventStartDate.touched">É necessário informar a
         data de início do
@@ -37,12 +37,12 @@
         <ion-label class="label" position="floating">Até</ion-label>
         <ion-datetime displayFormat="DD MMMM, YYYY HH:mm"
           monthNames="Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez" ngModel max="2030-12-31" min={{data}}
-          formControlName="eventEndDate"></ion-datetime>
+          formControlName="eventEndDate" [(ngModel)]="dtFim"></ion-datetime>
       </ion-item>
       <p class="error" *ngIf="eventEndDate.hasError('required') && eventEndDate.touched">É necessário informar a data do
         fim do
         evento.</p>
-      <p class="error" *ngIf="formGroup.hasError('horaInvalida') && (eventStartDate.valid && eventEndDate.valid)">A data
+      <p class="error" *ngIf="formGroup.hasError('horaInvalida') && (eventStartDate.valid && eventEndDate.valid)">A hora
         de
         término não pode ser anterior à hora de início.
       </p>
@@ -107,10 +107,16 @@
 
       <br>
 
-      <ion-button class="botao" color="primary" expand="block" type="submit" [disabled]="!formGroup.valid">Criar evento
+      <ion-button class="botao" color="primary" expand="block" type="submit" [disabled]="!formGroup.valid">Editar evento
       </ion-button>
 
       <br>
+
+      <ion-button class="botao" color="danger" expand="block" (click)="excluirClick()">Excluir evento
+      </ion-button>
+
+      <br>
+
       <ion-button class="botao" color="light" expand="block" (click)="goBack()">Cancelar
       </ion-button>
 

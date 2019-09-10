@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides } from '@ionic/angular';
+import { IonSlides, NavController } from '@ionic/angular';
 import { Evento } from 'src/app/models/event';
 import { EventService } from 'src/app/services/event_service/event.service';
 import { UtilService } from 'src/app/services/util_service/util.service';
@@ -19,7 +19,8 @@ export class EventsPage implements OnInit {
   confirmedEvents: Evento[];
   SAVedEvents: Evento[];
   createdEvents: Evento[];
-  isLoading: Boolean;
+  isLoading: Boolean = true;
+  isEvent: Boolean;
 
   @ViewChild('slides') slider: IonSlides;
 
@@ -30,15 +31,17 @@ export class EventsPage implements OnInit {
     private tabsSvc: TabsService,
     private uSvc: UserService,
     private dataService: DataService,
-    private router: Router) {
+    private router: Router,
+    private navCtrl: NavController) {
     this.createdEvents = [];
   }
 
   ngOnInit() {
-    // this.events = this.eventService.mockEvents();
-    // this.events.forEach(element => {
-    //   element.dataEvento = this.utilService.montarDataExtenso(element.dataEvento);
-    // });
+  }
+
+  ionViewDidEnter() {
+    console.log("foi");
+    this.getEventosByOwner();
   }
 
   async segmentChanged() {
@@ -59,38 +62,39 @@ export class EventsPage implements OnInit {
     this.navigateToEvent(event.id, event);
   }
 
-  goToEventReg() {
-
-  }
-
   async getEventosByOwner() {
     this.isLoading = true;
     this.createdEvents = [];
-    await this.eventService.getEventsByOwner('3')
+    await this.eventService.getEventsByOwner(this.uSvc.getUId())
       .subscribe(data => {
         let results = data.json();
         console.log(results);
-        results.forEach(element => {
-          this.createdEvents.push(
-            new Evento(element._idEvent,
-              element._title,
-              element._idOwner,
-              element._description,
-              element._startDate,
-              element._endDate,
-              element._place,
-              element._address,
-              element._cep,
-              this.utilService)
-          )
-        });
+        console.log(results.status);
+        if (results.status == 400) this.isEvent = false;
+        else {
+          this.isEvent = true;
+          results.forEach(element => {
+            this.createdEvents.push(
+              new Evento(element._idEvent,
+                element._title,
+                element._idOwner,
+                element._description,
+                element._startDate,
+                element._endDate,
+                element._place,
+                element._address,
+                element._cep,
+                this.utilService)
+            )
+          });
+        }
       });
     this.isLoading = false;
   }
 
   navigateToEvent(id, evento: Evento) {
     this.dataService.setData(id, evento);
-    this.router.navigateByUrl('/event-desc/' + id);
+    this.navCtrl.navigateRoot('/event-desc/' + id);
   }
 
   async doRefresh(event) {
@@ -101,7 +105,7 @@ export class EventsPage implements OnInit {
       }, 1000);
     }
     else
-    event.target.complete();
+      event.target.complete();
   }
 
 }

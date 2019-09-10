@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: '', loadChildren: './pages/tabs/tabs.module#TabsPageModule' },
   { path: 'create-event', loadChildren: './pages/create-event/create-event.module#CreateEventPageModule' },
   { path: 'event-desc/:id', resolve:{special: DataResolverService}, loadChildren: './pages/event-desc/event-desc.module#EventDescPageModule' },
+  { path: 'edit-event/:id', resolve:{special: DataResolverService}, loadChildren: './pages/edit-event/edit-event.module#EditEventPageModule' },
 ];
 
 @NgModule({

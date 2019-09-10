@@ -7,6 +7,8 @@ export class UtilService {
 
   constructor() { }
 
+  days = ['TER','QUA','QUI','SEX','SAB','DOM','SEG'];
+
   private getMesPeloNumero(mes: string) {
     switch (mes) {
       case "1": return "Janeiro";
@@ -67,7 +69,7 @@ export class UtilService {
     let data = dataHora.split(" ")[0];
     let hora = dataHora.split(" ")[1];
 
-    console.log("data: " + data + " hora: " + hora + " 3:" + dataHora.split(" ")[2]);
+    //console.log("data: " + data + " hora: " + hora + " 3:" + dataHora.split(" ")[2]);
 
     let arrData = data.split("/");
 
@@ -75,8 +77,17 @@ export class UtilService {
 
     if (dataHora.split(" ")[2] == "PM") arrHora[0] = this.getHora24(arrHora[0]);
 
-    console.log(arrData[0] + " de " + this.getMesPeloNumero(arrData[1]) + " de " + arrData[2] + ", " + arrHora[0] + ":" + arrHora[1]);
+    //console.log(arrData[0] + " de " + this.getMesPeloNumero(arrData[1]) + " de " + arrData[2] + ", " + arrHora[0] + ":" + arrHora[1]);
     return arrData[0] + " de " + this.getMesPeloNumero(arrData[1]) + " de " + arrData[2] + ", " + arrHora[0] + ":" + arrHora[1];
+  }
+
+  getDataDescricao(dataHora: string){
+    var dataArr = dataHora.split("/");
+    var dataFormat = this.montarDataExtenso(dataHora);
+    var data = new Date(dataHora);
+    var dataFormatArr = dataFormat.split(" ");
+    
+    return this.days[data.getDay()] + ", " + dataFormatArr[0] + " " + dataFormatArr[1].toUpperCase() + " " + this.getMesResPeloNumero(dataArr[1]).toUpperCase() + ", " + dataFormatArr[5];
   }
 
 

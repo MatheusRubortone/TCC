@@ -105,34 +105,35 @@ export class CreateEventPage implements OnInit {
     if (this.formGroup.get("eventCep").valid) {
       let cep = ev.target.value;
       await this.eventService.getEnderecoPorCep(cep).subscribe((res) => {
-        this.popularEndereco(res);
+        this.popularEndereco(res, this.formGroup);
       });
     }
   }
 
-  popularEndereco(res) {
+  popularEndereco(res, formGroup: FormGroup) {
     if (res != "erro") {
-      this.formGroup.get("eventAddress").setValue(res.logradouro);
-      this.formGroup.get("eventAddress").disable;
+      formGroup.get("eventAddress").setValue(res.logradouro);
+      formGroup.get("eventAddress").disable;
 
-      this.formGroup.get("eventNbhd").setValue(res.bairro);
-      this.formGroup.get("eventNbhd").disable;
-
-
-      this.formGroup.get("eventCity").setValue(res.localidade);
-      this.formGroup.get("eventCity").disable;
+      formGroup.get("eventNbhd").setValue(res.bairro);
+      formGroup.get("eventNbhd").disable;
 
 
-      this.formGroup.get("eventUf").setValue(res.uf);
-      this.formGroup.get("eventUf").disable;
+      formGroup.get("eventCity").setValue(res.localidade);
+      formGroup.get("eventCity").disable;
+
+
+      formGroup.get("eventUf").setValue(res.uf);
+      formGroup.get("eventUf").disable;
     }
     else {
-      this.formGroup.get("eventAddress").enable;
-      this.formGroup.get("eventNbhd").enable;
-      this.formGroup.get("eventCity").enable;
-      this.formGroup.get("eventCity").enable;
+      formGroup.get("eventAddress").enable;
+      formGroup.get("eventNbhd").enable;
+      formGroup.get("eventCity").enable;
+      formGroup.get("eventCity").enable;
     }
   }
+
 
   public onKeyUp(event) {
     let newValue = event.target.value;

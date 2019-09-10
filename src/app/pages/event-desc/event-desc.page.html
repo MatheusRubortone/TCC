@@ -1,8 +1,11 @@
 <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
   <div class="eventCover" style="background-image: url(/assets/party.png);"></div>
   <div class="info">
     <div class="data">
-      <h2>{{event.mesResEvento}}</h2><br>
+      <h2 id="mesResEvento">{{event.mesResEvento}}</h2><br>
       <h2>{{event.diaInicioEvento}}</h2>
     </div>
     <div class="title">
@@ -10,7 +13,7 @@
       <h4>{{event.place}}</h4>
     </div>
     <div class="fullDate">
-      <p id="fulldate">{{event.startDate}} - {{event.endDate}}</p>
+      <p id="fulldate">{{event.startDateDesc}} - {{event.endDateDesc}}</p>
     </div>
   </div>
   <div class="actions">
@@ -28,9 +31,6 @@
     </div>
   </div>
   <div class="people">
-    <div class="pics">
-        <ion-icon name="contact"></ion-icon>
-    </div>
     <div class="text">
       <p>Julia, Pedro e mais 40 pessoas irão.</p>
     </div>
@@ -50,4 +50,9 @@
     </div>
     <div #mapElement class="map"></div>
   </div>
+  <ion-fab *ngIf="isOwner" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="navigateToEvent()">
+      <ion-icon name="create"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

@@ -76,8 +76,10 @@
     <ion-slide>
     </ion-slide>
     <ion-slide>
-      <ion-spinner></ion-spinner>
-      <div class="divList">
+      <div *ngIf="!isEvent">
+        <p id="semEventos">Você ainda não tem nenhum evento!</p>
+      </div>
+      <div class="divList" *ngIf="isEvent">
         <ion-list class="list">
           <br>
           <div class="card" style="background-image: url(/assets/party.png);" *ngFor="let event of createdEvents"

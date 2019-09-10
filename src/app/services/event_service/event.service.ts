@@ -23,6 +23,20 @@ export class EventService {
     )
   }
 
+  getEvent(idEvento: string){
+    return this.http.post(this.env.API_URL + '/event/get', { idEvent: idEvento })
+  }
+
+  editEvent(idEvento: string,title: string, idOwner: string, description: string, startDate: string, endDate: string, place: string, address: string, cep: string) {
+    return this.http.post(this.env.API_URL + '/event/update',
+      {idEvent: idEvento, title: title, idOwner: idOwner, description: description, startDate: startDate, endDate: endDate, place: place, address: address, cep: cep }
+    )
+  }
+
+  excludeEvent(idEvento: string){
+    return this.http.post(this.env.API_URL+'/Event/Delete', {idEvent: idEvento});
+  }
+
   // mockEvents() {
   //   let eventos = []
   //   for (var i = 1; i < 6; i++) {

@@ -15,6 +15,8 @@ export class Evento {
         this.starDateExtenso = this.utilSvc.montarDataExtenso(startDate);
         this.diaInicioEvento = this.utilSvc.getDiaEvento(startDate);
         this.mesResEvento = this.utilSvc.getMesResPeloNumero(this.startDate.split(" ")[0].split("/")[1]);
+        this.startDateDesc = this.utilSvc.getDataDescricao(this.startDate);
+        this.endDateDesc = this.utilSvc.getDataDescricao(this.endDate);
     }
 
     id: string;
@@ -29,4 +31,6 @@ export class Evento {
     starDateExtenso: string;
     diaInicioEvento: string;
     mesResEvento: string;
+    startDateDesc: string;
+    endDateDesc: string;
 }
