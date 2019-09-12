@@ -202,8 +202,8 @@ export class EditEventPage implements OnInit {
   }
 
   editarEvento(form: NgForm){
-    var dtHrInicioFormat = form.value.eventStartDate.toLocaleString();
-    var dtHrFimFormat = form.value.eventEndDate.toLocaleString();
+    var dtHrInicioFormat = this.formatDate(form.value.eventStartDate.toLocaleString());
+    var dtHrFimFormat = this.formatDate(form.value.eventEndDate.toLocaleString());
 
     var evtAddress = this.formGroup.get("eventAddress").value + "," + this.formGroup.get("eventAddNumber").value + "," + this.formGroup.get("eventNbhd").value + "," + this.formGroup.get("eventCity").value + "," + this.formGroup.get("eventUf").value;
 
@@ -228,6 +228,20 @@ export class EditEventPage implements OnInit {
     else 
     this.editarEvento(form);
 
+  }
+
+  formatDate(date: string){
+    var dataHora: string[] = date.split("T");
+    //2019-09-11T21:34:00-03:00
+    if(dataHora.length > 1){
+      var data = dataHora[0].split("-");
+      var hora = dataHora[1].split(":");
+
+      var horaFormat = data[2]+"/"+data[1]+"/"+data[0]+" "+hora[0]+":"+hora[1]+":00";
+
+      return horaFormat;
+    }
+    else return date;
   }
 
 }

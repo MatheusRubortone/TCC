@@ -66,6 +66,18 @@ export class EventDescPage implements OnInit {
     this.refresh();
   }
 
+  zipped: boolean = false;
+
+  toggleZipped(): void {
+    this.zipped = !this.zipped;
+  }
+
+  confirmado: boolean = false;
+  
+  toggleConf(): void {
+    this.confirmado = !this.confirmado;
+  }
+
   refresh() {
     this.loadSvc.presentLoading();
     this.evSvc.getEvent(this.event.id).subscribe(data => {

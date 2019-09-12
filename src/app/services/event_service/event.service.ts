@@ -28,6 +28,7 @@ export class EventService {
   }
 
   editEvent(idEvento: string,title: string, idOwner: string, description: string, startDate: string, endDate: string, place: string, address: string, cep: string) {
+    console.log(startDate + ", "+ endDate);
     return this.http.post(this.env.API_URL + '/event/update',
       {idEvent: idEvento, title: title, idOwner: idOwner, description: description, startDate: startDate, endDate: endDate, place: place, address: address, cep: cep }
     )

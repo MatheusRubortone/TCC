@@ -86,6 +86,8 @@ export class UtilService {
     var dataFormat = this.montarDataExtenso(dataHora);
     var data = new Date(dataHora);
     var dataFormatArr = dataFormat.split(" ");
+
+    console.log(this.days[data.getDay()] + ", " + dataFormatArr[0] + " " + dataFormatArr[1].toUpperCase()+ " " + this.getMesResPeloNumero(dataArr[1]).toUpperCase() + ", " + dataFormatArr[5]);
     
     return this.days[data.getDay()] + ", " + dataFormatArr[0] + " " + dataFormatArr[1].toUpperCase() + " " + this.getMesResPeloNumero(dataArr[1]).toUpperCase() + ", " + dataFormatArr[5];
   }
