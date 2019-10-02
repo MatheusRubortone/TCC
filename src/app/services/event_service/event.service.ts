@@ -5,6 +5,7 @@ import { EnvService } from '../env_service/env.service';
 import { tap } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { UserService } from '../user_service/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class EventService {
   constructor(
     private http: Http,
     private storage: NativeStorage,
-    private env: EnvService
+    private env: EnvService,
+    private uSvc: UserService
   ) { }
 
   registerEvent(title: string, idOwner: string, description: string, startDate: string, endDate: string, place: string, address: string, cep: string) {
@@ -38,15 +40,6 @@ export class EventService {
     return this.http.post(this.env.API_URL+'/Event/Delete', {idEvent: idEvento});
   }
 
-  // mockEvents() {
-  //   let eventos = []
-  //   for (var i = 1; i < 6; i++) {
-  //     eventos.push(new Evento("Evento teste abcde 12345 " + i, "0" + i + "/08/2019", "Bar Exemplo, São Paulo, SP"))
-  //   }
-
-  //   return eventos;
-  // }
-
   getEnderecoPorCep(cep: string) {
     return this.http.get(this.env.API_CPF_URL.replace("{cep}", cep)).map(res => {
       return res.json();
@@ -62,5 +55,23 @@ export class EventService {
 
   getEventsByOwner(idUsuario: string){
     return this.http.post(this.env.API_URL+'/Event/EventsByOwner', {userID: idUsuario});
+  }
+
+  flagEvent(idEvent: string, personId: string, checkIn: string, flag: string,){
+    return this.http.post(this.env.API_URL + '/EventXUser/AddUserEvent', { idEvent: idEvent, personIdEvent: personId, personcheckInEvent: checkIn, personStateEvent: flag});
+  }
+
+  alterarSaveEvento(evento: Evento, tipo){
+    if(tipo == "I")
+      var flag = evento.saved ? tipo : 'X';
+    else if(tipo == "C")
+    var flag = evento.confirmed ? tipo : 'X';
+    this.flagEvent(evento.id, this.uSvc.getUId(), 'N', flag).subscribe((data)=>{
+      console.log(data.json());
+    });
+  }
+
+  getFilteredEvents(userId, keyString){
+    return this.http.post(this.env.API_URL+'/Event/EventsWithFilter', {key: keyString, value: userId});
   }
 }

@@ -6,7 +6,7 @@
 
 <ion-segment mode="md" (ionChange)="segmentChanged()" [(ngModel)]="segment" color="primary" scrollable>
   <ion-segment-button value="0" mode="md" checked>
-    <p>Salvos</p>
+    <p>Interesses</p>
   </ion-segment-button>
   <ion-segment-button value="1" mode="md">
     <p>Confirmados</p>
@@ -19,73 +19,20 @@
   </ion-segment-button>
 </ion-segment>
 <ion-content>
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content></ion-refresher-content>
-      </ion-refresher>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-slides #slides (ionSlideDidChange)="slideChanged()" class="slides">
     <ion-slide class="slide">
-      <!-- <div class="divList">
-        <ion-list class="list">
-          <br>
-          <div class="card" style="background-image: url(/assets/party.png);" *ngFor="let event of events">
-            <div class="layer">
-              <div class="info">
-                <div class="card-toptitle">
-                  <p class="p-toptitle">{{event.dataEvento}}</p>
-                </div>
-                <div class="card-title">
-                  <p class="p-title">{{event.nomeEvento}}</p>
-                </div>
-                <div class="card-subtitle">
-                  <p class="p-subtitle">{{event.localEvento}}</p>
-                </div>
-              </div>
-              <div class="icon">
-                <ion-icon class="heartIcon" name="heart-empty"></ion-icon>
-              </div>
-            </div>
-          </div>
-        </ion-list>
-      </div> -->
-    </ion-slide>
-    <ion-slide>
-      <!-- <div class="divList">
-        <ion-list class="list">
-          <br>
-          <div class="card" style="background-image: url(/assets/party.png);" *ngFor="let event of events">
-              <div class="layer">
-                <div class="info">
-                  <div class="card-toptitle">
-                    <p class="p-toptitle">{{event.dataEvento}}</p>
-                  </div>
-                  <div class="card-title">
-                    <p class="p-title">{{event.nomeEvento}}</p>
-                  </div>
-                  <div class="card-subtitle">
-                    <p class="p-subtitle">{{event.localEvento}}</p>
-                  </div>
-                </div>
-                <div class="icon">
-                  <ion-icon class="heartIcon" name="heart-empty"></ion-icon>
-                </div>
-              </div>
-          </div>
-      </ion-list>
-      </div> -->
-    </ion-slide>
-    <ion-slide>
-    </ion-slide>
-    <ion-slide>
-      <div *ngIf="!isEvent">
-        <p id="semEventos">Você ainda não tem nenhum evento!</p>
+      <div *ngIf="!isSavedEvent">
+        <p id="semEventos">Você ainda não tem nenhum interesse!</p>
       </div>
-      <div class="divList" *ngIf="isEvent">
+      <div class="divList" *ngIf="isSavedEvent">
         <ion-list class="list">
           <br>
-          <div class="card" style="background-image: url(/assets/party.png);" *ngFor="let event of createdEvents"
-            (click)="eventOnClick(event)">
+          <div class="card" style="background-image: url(/assets/party.png);" *ngFor="let event of savedEvents">
             <div class="layer">
-              <div class="info">
+              <div class="info" (click)="eventOnClick(event)">
                 <div class="card-toptitle">
                   <p class="p-toptitle">{{event.starDateExtenso}}</p>
                 </div>
@@ -97,7 +44,68 @@
                 </div>
               </div>
               <div class="icon">
-                <ion-icon class="heartIcon" name="heart-empty"></ion-icon>
+                <ion-icon class="heartIcon" (click)="heartClick(event)" [name]="event.saved ? 'heart' : 'heart-empty'">
+                </ion-icon>
+              </div>
+            </div>
+          </div>
+        </ion-list>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div *ngIf="!isConfirmedEvent">
+        <p id="semEventos">Você ainda não tem nenhum evento confirmado!</p>
+      </div>
+      <div class="divList" *ngIf="isConfirmedEvent">
+        <ion-list class="list">
+          <br>
+          <div class="card" style="background-image: url(/assets/party.png);" *ngFor="let event of confirmedEvents">
+            <div class="layer">
+              <div class="info" (click)="eventOnClick(event)">
+                <div class="card-toptitle">
+                  <p class="p-toptitle">{{event.starDateExtenso}}</p>
+                </div>
+                <div class="card-title">
+                  <p class="p-title">{{event.title}}</p>
+                </div>
+                <div class="card-subtitle">
+                  <p class="p-subtitle">{{event.place}}</p>
+                </div>
+              </div>
+              <div class="icon">
+                <ion-icon class="heartIcon" (click)="heartClick(event)" [name]="event.saved ? 'heart' : 'heart-empty'">
+                </ion-icon>
+              </div>
+            </div>
+          </div>
+        </ion-list>
+      </div>
+    </ion-slide>
+    <ion-slide>
+    </ion-slide>
+    <ion-slide>
+      <div *ngIf="!isOwnEvent">
+        <p id="semEventos">Você ainda não tem nenhum evento!</p>
+      </div>
+      <div class="divList" *ngIf="isOwnEvent">
+        <ion-list class="list">
+          <br>
+          <div class="card" style="background-image: url(/assets/party.png);" *ngFor="let event of createdEvents">
+            <div class="layer">
+              <div class="info" (click)="eventOnClick(event)">
+                <div class="card-toptitle">
+                  <p class="p-toptitle">{{event.starDateExtenso}}</p>
+                </div>
+                <div class="card-title">
+                  <p class="p-title">{{event.title}}</p>
+                </div>
+                <div class="card-subtitle">
+                  <p class="p-subtitle">{{event.place}}</p>
+                </div>
+              </div>
+              <div class="icon">
+                <ion-icon class="heartIcon" (click)="heartClick(event)" [name]="event.saved ? 'heart' : 'heart-empty'">
+                </ion-icon>
               </div>
             </div>
           </div>

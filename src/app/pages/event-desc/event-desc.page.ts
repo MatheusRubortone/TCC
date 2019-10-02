@@ -66,16 +66,18 @@ export class EventDescPage implements OnInit {
     this.refresh();
   }
 
-  zipped: boolean = false;
+  toggleSave(): void {
+    this.event.saved = !this.event.saved;
+    if(this.event.confirmed) this.event.confirmed = !this.event.saved;
 
-  toggleZipped(): void {
-    this.zipped = !this.zipped;
+    this.eventSvc.alterarSaveEvento(this.event,"I");
   }
 
-  confirmado: boolean = false;
-  
   toggleConf(): void {
-    this.confirmado = !this.confirmado;
+    this.event.confirmed = !this.event.confirmed;
+    if(this.event.saved) this.event.saved = !this.event.confirmed;
+
+    this.eventSvc.alterarSaveEvento(this.event, "C");
   }
 
   refresh() {
@@ -93,6 +95,7 @@ export class EventDescPage implements OnInit {
         retorno._place,
         retorno._address,
         retorno._cep,
+        retorno._state,
         this.utilService);
 
       var end = this.event.address.split(",");
@@ -142,5 +145,4 @@ export class EventDescPage implements OnInit {
       event.target.complete();
     }, 1000);
   }
-
 }

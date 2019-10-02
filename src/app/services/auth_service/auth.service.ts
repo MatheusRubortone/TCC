@@ -56,7 +56,7 @@ export class AuthService {
   register(name: String, email: String, password: String, dtNascimento: String) {
     console.log(dtNascimento.toString());
     return this.http.post(this.env.API_URL + '/user/register/',
-      { user: name, password: password, email: email, dtnascimento: dtNascimento.toString() }
+      { user: name, password: password, email: email, birthdate: dtNascimento.toString() }
     )
   }
 

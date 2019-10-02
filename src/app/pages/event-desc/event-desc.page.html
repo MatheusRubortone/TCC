@@ -18,12 +18,12 @@
   </div>
   <div class="actions">
     <div class="confirm" (click)="toggleConf()">
-      <ion-icon [name]="confirmado? 'checkmark' : 'add'"></ion-icon>
+      <ion-icon [name]="event.confirmed? 'checkmark' : 'add'"></ion-icon>
       <p>Eu vou</p>
     </div>
-    <div class="save" (click)="toggleZipped()">
-      <ion-icon [name]="zipped? 'heart' : 'heart-empty'"></ion-icon>
-      <p>Salvar</p>
+    <div class="save" (click)="toggleSave()">
+      <ion-icon [name]="event.saved ? 'heart' : 'heart-empty'"></ion-icon>
+      <p>Interesse</p>
     </div>
     <div class="invite">
       <ion-icon name="person-add"></ion-icon>
