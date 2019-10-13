@@ -44,7 +44,7 @@ export class UtilService {
   }
 
   getDiaEvento(dataHora: string) {
-    return dataHora.split(" ")[0].split("/")[0];
+    return dataHora.split(" ")[0].split("/")[1];
   }
 
   private getHora24(hora: string) {
@@ -78,7 +78,7 @@ export class UtilService {
     if (dataHora.split(" ")[2] == "PM") arrHora[0] = this.getHora24(arrHora[0]);
 
     //console.log(arrData[0] + " de " + this.getMesPeloNumero(arrData[1]) + " de " + arrData[2] + ", " + arrHora[0] + ":" + arrHora[1]);
-    return arrData[0] + " de " + this.getMesPeloNumero(arrData[1]) + " de " + arrData[2] + ", " + arrHora[0] + ":" + arrHora[1];
+    return arrData[1] + " de " + this.getMesPeloNumero(arrData[0]) + " de " + arrData[2] + ", " + arrHora[0] + ":" + arrHora[1];
   }
 
   getDataDescricao(dataHora: string){
@@ -86,10 +86,11 @@ export class UtilService {
     var dataFormat = this.montarDataExtenso(dataHora);
     var data = new Date(dataHora);
     var dataFormatArr = dataFormat.split(" ");
+    console.log(dataFormatArr);
 
-    console.log(this.days[data.getDay()] + ", " + dataFormatArr[0] + " " + dataFormatArr[1].toUpperCase()+ " " + this.getMesResPeloNumero(dataArr[1]).toUpperCase() + ", " + dataFormatArr[5]);
+    console.log(this.days[data.getDay()] + ", " + dataFormatArr[0] + " DE " + this.getMesResPeloNumero(dataArr[0]).toUpperCase() + ", " + dataFormatArr[5]);
     
-    return this.days[data.getDay()] + ", " + dataFormatArr[0] + " " + dataFormatArr[1].toUpperCase() + " " + this.getMesResPeloNumero(dataArr[1]).toUpperCase() + ", " + dataFormatArr[5];
+    return this.days[data.getDay()] + ", " + dataFormatArr[0] + " DE " +  this.getMesResPeloNumero(dataArr[0]).toUpperCase() + ", " + dataFormatArr[5];
   }
 
 

@@ -203,6 +203,7 @@ export class EventsPage implements OnInit {
 
   heartClick(evento: Evento) {
     evento.saved = !evento.saved;
+    this.isSavedEvent = evento.saved;
     this.eventService.alterarSaveEvento(evento, "I");
   }
 
