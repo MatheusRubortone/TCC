@@ -74,4 +74,8 @@ export class EventService {
   getFilteredEvents(userId, keyString){
     return this.http.post(this.env.API_URL+'/Event/EventsWithFilter', {key: keyString, value: userId});
   }
+
+  getAttendees(eventId){
+    return this.http.post(this.env.API_URL+'/Event/getUsersConfirmed', {id: eventId});  
+  }
 }

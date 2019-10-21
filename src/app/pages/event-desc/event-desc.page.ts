@@ -145,4 +145,9 @@ export class EventDescPage implements OnInit {
       event.target.complete();
     }, 1000);
   }
+
+  navigateToAttendances(){
+    this.dataService.setData(this.event.id, this.event.id);
+    this.router.navigateByUrl('/event-attendance/' + this.event.id);
+  }
 }

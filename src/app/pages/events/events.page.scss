@@ -82,11 +82,6 @@ ion-refresher{
     border-radius: 5px;
 }
 
-#semEventos{
-    font-family: 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    color: #47525E;
-    font-size: 5vw;
-}
 
 //-------------------------------- Card do evento -----------------------------------------------------------
 .card {
@@ -100,13 +95,13 @@ ion-refresher{
     margin-bottom: 5%;
     background-size: cover;
     background-position: center center;
-  }
-
-  p{
-    margin: 0;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    
+    p{
+        margin: 0;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
   }
 
   .card-title {
@@ -166,3 +161,16 @@ ion-refresher{
 
 
 //------------------------------------------------
+
+#msgContainer{
+    width: 90%;
+    height: auto;
+    overflow: auto;
+}
+
+#semEventos{
+    font-family: 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+    color: #47525E;
+    font-size: 5vw;
+    overflow-wrap: break-word;
+}

@@ -2,9 +2,9 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-div{
-    //border: 1px solid red;
-}
+// div{
+//     border: 1px solid red;
+// }
 
 .eventCover{
     height: 30%;
@@ -128,14 +128,17 @@ div{
     height: 7%;
     width: 100%;
     border-bottom: 1px solid #9400d3;
+    text-align: center;
+    padding-left: 25%;
 
     .text{
+        line-height: 70%;
         float: left;
-        width: 80%;
         height: 100%;
         text-align: center;
         font-size: 4.5vw;
         margin: auto;
+        padding-bottom: 1%;
     }
 
     .icone{

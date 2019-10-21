@@ -12,6 +12,8 @@ const routes: Routes = [
   { path: 'create-event', loadChildren: './pages/create-event/create-event.module#CreateEventPageModule' },
   { path: 'event-desc/:id', resolve:{special: DataResolverService}, loadChildren: './pages/event-desc/event-desc.module#EventDescPageModule' },
   { path: 'edit-event/:id', resolve:{special: DataResolverService}, loadChildren: './pages/edit-event/edit-event.module#EditEventPageModule' },
+  { path: 'event-attendance/:id', resolve:{special: DataResolverService}, loadChildren: './pages/event-attendance/event-attendance.module#EventAttendancePageModule' },
+  { path: 'user-profile/:id', resolve:{special: DataResolverService}, loadChildren: './pages/user-profile/user-profile.module#UserProfilePageModule' },
 ];
 
 @NgModule({

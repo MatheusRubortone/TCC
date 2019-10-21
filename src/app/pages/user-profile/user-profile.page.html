@@ -1,9 +1,121 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>userProfile</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <ion-button (click)="sair()">Logout</ion-button>
+  <!-- <ion-button (click)="sair()">Logout</ion-button> -->
+
+
+  <div *ngIf="!userProfile">
+    <!-- Pagina de exibição de perfil -->
+    <div id="imagemPerfil" style="background-image: url(/assets/party.png);"></div>
+
+    <div id="info">
+      <div id="infoBox">
+        <div id="nome">{{user.firstName}}, {{user.idade}}</div>
+        <div id="espaco"></div>
+        <div id="est">
+          <div id="iconeEst">
+            <ion-icon class="heartIcon" name="heart-empty"></ion-icon>
+          </div>
+          <div id="descEst">
+            {{user.estadoCivil}}
+          </div>
+        </div>
+      </div>
+      <div id="addBox">
+        <ion-icon name="person-add"></ion-icon>
+      </div>
+    </div>
+
+    <div id="desc">"{{user.bio}}"</div>
+
+    <div id="convidar">
+      <button class="btnConvidar">
+        Chamar para conversa
+      </button>
+    </div>
+
+    <div>
+      <div id="interesses">
+        <div id="title">Interesses:</div>
+        <div id="interesseBoxes" *ngFor="let interesse of user.interesses">
+          {{interesse.nome}}
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div id="eventos">
+      <div id="title">Eventos confirmados:</div>
+    </div>
+
+    <ion-slides spaceBetween="-40" class="slides">
+      <ion-slide *ngFor="let event of events" class="slide">
+        <ion-card class="slideDiv" style="background-image: url(/assets/party.png);">
+          <div style="height: 100%;">
+            <div class="layer">
+              <div class="slideContent">
+                <p class="dataEvento">{{event.starDateExtenso}}</p>
+                <p class="nomeEvento">{{event.title}}</p>
+                <p class="localEvento">{{event.place}}</p>
+              </div>
+              <div class="iconDiv">
+                <ion-icon class="heartIcon" name="heart-empty"></ion-icon>
+              </div>
+            </div>
+          </div>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+
+  </div>
+
+  <div *ngIf="userProfile">
+
+    <div id="configDiv">
+      <ion-icon id="editBtn" name="create" *ngIf="!editMode" (click)="turnEditModeOn()"></ion-icon>
+      <ion-icon name="settings"></ion-icon>
+    </div>
+
+    <div id="infoPerfil">
+      <div id="slotPerfilImg">
+        <div id="imagemPerfilEdit" style="background-image: url(/assets/party.png);"></div>
+      </div>
+      <div id="detalhesPessoa">
+        <div id="nomePerfil">{{user.firstName}}, {{user.idade}}</div>
+        <div id="iconeEstPerfil">
+          <ion-icon class="heartIcon" name="heart-empty"></ion-icon>
+        </div>
+        <div id="descEstPerfil" *ngIf="!editMode">
+          {{user.estadoCivil}}
+        </div>
+        <div id="descEstPerfilEdit">
+          <ion-select *ngIf="editMode" [(ngModel)]="user.siglaEstadoCivil">
+            <ion-select-option value="S">Solteiro(a)</ion-select-option>
+            <ion-select-option value="C">Casado(a)</ion-select-option>
+            <ion-select-option value="E">Enrolado(a)</ion-select-option>
+            <ion-select-option value="N">Namorando</ion-select-option>
+          </ion-select>
+        </div>
+      </div>
+    </div>
+
+    <div id="desc" *ngIf="!editMode">"{{user.bio}}"</div>
+    <ion-textarea id="descEdit" [(ngModel)]="user.bio" autoGrow="true" *ngIf="editMode" value={{user.bio}}></ion-textarea>
+
+    <div>
+      <div id="interesses">
+        <div id="title">Interesses:</div>
+        <div id="interesseBoxes" *ngFor="let interesse of user.interesses">
+          {{interesse.nome}}
+        </div>
+      </div>
+    </div>
+
+    <div id="editarPerfilDiv" *ngIf="editMode">
+      <button class="btnEditarPerfil" (click)="salvarPerfil()">
+        Salvar Modificações
+      </button>
+    </div>
+
+  </div>
+
 </ion-content>

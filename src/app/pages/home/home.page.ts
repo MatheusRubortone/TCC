@@ -13,13 +13,27 @@ import { UserService } from 'src/app/services/user_service/user.service';
 })
 export class HomePage implements OnInit {
 
-  events: Evento[];
+  events;
   dataFormatada: string;
 
   constructor(private router: Router,
               private eventService: EventService,
               private utilService: UtilService,
-              private userService: UserService) { }
+              private userService: UserService) { 
+                this.events = [{
+                  starDateExtenso: "20 de Outubro de 2019, 12:42",
+                  title: "Teste",
+                  place: "Local Teste",
+                  saved: false
+                },
+                {
+                  starDateExtenso: "20 de Outubro de 2019, 12:42",
+                  title: "Teste",
+                  place: "Local Teste",
+                  saved: false
+                },
+              ];
+              }
 
   ngOnInit() {
     // this.events = this.eventService.mockEvents();
