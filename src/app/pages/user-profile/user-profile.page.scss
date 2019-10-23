@@ -349,4 +349,24 @@
     }   
 }
 
+#addInteresse{
+    position: relative;
+    height: 45%;
+    width: auto;
+    background-color: white;
+    border-radius: 5px;
+    float: left;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--ion-color-primary);
+    border: 1px solid var(--ion-color-primary);
+    font-size: 4vw;
+    padding: 5%, 2.5%, 5%, 2.5%;
+    margin-right: 2%;
+    margin-top: 2%;
+    padding: 2%
+}
+
+#interesseSelect{
+    visibility: hidden;
+}
 

@@ -30,6 +30,11 @@ export class UserService {
       { idPerson: user.id, name: user.name, birthDate: user.dtnascimento, civilState: user.siglaEstadoCivil, biography: user.bio });
   }
 
+  addInteresses(interessesArray){
+    return this.http.post(this.env.API_URL + '/User/ActionGenres',
+      interessesArray);
+  }
+
   getEstadoCivil(siglaEC): string {
     switch (siglaEC) {
       case "S": return "Solteiro(a)";

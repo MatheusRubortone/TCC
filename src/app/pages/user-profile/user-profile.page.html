@@ -31,9 +31,9 @@
         Chamar para conversa
       </button>
     </div>
-
+    <br>
     <div>
-      <div id="interesses">
+      <div id="interesses" *ngIf="!hideInteresses">
         <div id="title">Interesses:</div>
         <div id="interesseBoxes" *ngFor="let interesse of user.interesses">
           {{interesse.nome}}
@@ -43,28 +43,24 @@
 
     <br>
 
-    <div id="eventos">
+    <div id="eventos" *ngIf="!hideEvents">
       <div id="title">Eventos confirmados:</div>
-    </div>
-
-    <ion-slides spaceBetween="-40" class="slides">
-      <ion-slide *ngFor="let event of events" class="slide">
-        <ion-card class="slideDiv" style="background-image: url(/assets/party.png);">
-          <div style="height: 100%;">
-            <div class="layer">
-              <div class="slideContent">
-                <p class="dataEvento">{{event.starDateExtenso}}</p>
-                <p class="nomeEvento">{{event.title}}</p>
-                <p class="localEvento">{{event.place}}</p>
-              </div>
-              <div class="iconDiv">
-                <ion-icon class="heartIcon" name="heart-empty"></ion-icon>
+      <ion-slides spaceBetween="-40" class="slides">
+        <ion-slide *ngFor="let event of events" class="slide">
+          <ion-card class="slideDiv" style="background-image: url(/assets/party.png);">
+            <div style="height: 100%;">
+              <div class="layer">
+                <div class="slideContent">
+                  <p class="dataEvento">{{event.starDateExtenso}}</p>
+                  <p class="nomeEvento">{{event.title}}</p>
+                  <p class="localEvento">{{event.place}}</p>
+                </div>
               </div>
             </div>
-          </div>
-        </ion-card>
-      </ion-slide>
-    </ion-slides>
+          </ion-card>
+        </ion-slide>
+      </ion-slides>
+    </div>
 
   </div>
 
@@ -99,15 +95,27 @@
     </div>
 
     <div id="desc" *ngIf="!editMode">"{{user.bio}}"</div>
-    <ion-textarea id="descEdit" [(ngModel)]="user.bio" autoGrow="true" *ngIf="editMode" value={{user.bio}}></ion-textarea>
+    <ion-textarea id="descEdit" [(ngModel)]="user.bio" autoGrow="true" *ngIf="editMode" value={{user.bio}}>
+    </ion-textarea>
 
     <div>
       <div id="interesses">
         <div id="title">Interesses:</div>
-        <div id="interesseBoxes" *ngFor="let interesse of user.interesses">
-          {{interesse.nome}}
+        <div id="interesseBoxes" *ngFor="let interesse of interessesUsuario">
+          {{interesse}}
+        </div>
+        <div id="addInteresse" (click)="abrirSelect()">
+          <ion-icon name="add"></ion-icon>
         </div>
       </div>
+    </div>
+
+    <div>
+      <ion-select multiple="true" id="interesseSelect" [(ngModel)]="interessesUsuario" (ionChange)="onChange()"
+        #mySelect>
+        <ion-select-option *ngFor="let interesse of interessesList" value={{interesse}}>{{interesse}}
+        </ion-select-option>
+      </ion-select>
     </div>
 
     <div id="editarPerfilDiv" *ngIf="editMode">

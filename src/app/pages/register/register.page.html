@@ -1,6 +1,6 @@
 <ion-content>
 
-  <br><br>
+  <br>
 
   <h1 class="title">Criar conta</h1>
 
@@ -22,6 +22,15 @@
         ngModel formControlName="birthDate"></ion-datetime>
       </ion-item>
       <p class="error" *ngIf="birthDate.hasError('required') && birthDate.touched">É necessário informar a data de nascimento.</p>
+
+      <ion-item color="none" class="formulario" lines="none">
+        <ion-label class="label" position="floating">Sexo</ion-label>
+        <ion-select ngModel formControlName="genero">
+          <ion-select-option value="M" selected>Masculino</ion-select-option>
+          <ion-select-option value="F" selected>Feminino</ion-select-option>
+          <ion-select-option value="O" selected>Outro</ion-select-option>
+        </ion-select>
+      </ion-item>
 
       <ion-item color="none" class="formulario" lines="none">
         <ion-label class="label" position="floating">Email</ion-label>

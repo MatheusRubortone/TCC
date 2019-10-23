@@ -15,6 +15,8 @@ import { DatePipe } from '@angular/common';
 import { Http, HttpModule } from '@angular/http';
 import { Moment } from 'moment';
 import { FormsModule } from '@angular/forms'; 
+import { ModalInteressesPageModule } from './pages/modal-interesses/modal-interesses.module';
+
 
 
 
@@ -27,7 +29,7 @@ import { FormsModule } from '@angular/forms';
             HttpClientModule,
             HttpModule,
             BrowserModule,
-            FormsModule ],
+            FormsModule],
   providers: [
     StatusBar,
     SplashScreen,

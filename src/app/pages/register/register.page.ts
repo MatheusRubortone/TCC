@@ -20,6 +20,7 @@ export class RegisterPage implements OnInit {
   email: AbstractControl;
   password: AbstractControl;
   passwordConf: AbstractControl;
+  genero: AbstractControl;
   erroEmail: boolean;
 
   constructor(
@@ -41,11 +42,13 @@ export class RegisterPage implements OnInit {
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
       ])],
       password: ['', Validators.required],
+      genero: ['', Validators.required],
       passwordConf: ['', Validators.required]
     }, { validator: this.matchingPasswords('password', 'passwordConf') });
 
     this.name = this.formGroup.controls['name'];
     this.birthDate = this.formGroup.controls['birthDate'];
+    this.genero = this.formGroup.controls['genero'];
     this.email = this.formGroup.controls['email'];
     this.password = this.formGroup.controls['password'];
     this.passwordConf = this.formGroup.controls['passwordConf'];
@@ -58,7 +61,7 @@ export class RegisterPage implements OnInit {
 
   async register(form: NgForm) {
     await this.lodingService.presentLoading();
-    this.authService.register(form.value.name, form.value.email, form.value.password, form.value.birthDate).subscribe(
+    this.authService.register(form.value.name, form.value.email, form.value.password, form.value.birthDate, form.value.genero).subscribe(
       data => {
         let response = data.json();
         console.log(response);

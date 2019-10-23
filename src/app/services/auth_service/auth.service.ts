@@ -53,10 +53,10 @@ export class AuthService {
     );
   }
 
-  register(name: String, email: String, password: String, dtNascimento: String) {
+  register(name: String, email: String, password: String, dtNascimento: String, genero: String) {
     console.log(dtNascimento.toString());
     return this.http.post(this.env.API_URL + '/user/register/',
-      { user: name, password: password, email: email, birthdate: dtNascimento.toString() }
+      { email: email, password: password, birthdate: dtNascimento.toString(), user: name, genre: genero }
     )
   }
 
