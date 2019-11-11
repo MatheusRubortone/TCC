@@ -44,4 +44,19 @@ export class UserService {
     }
   }
 
+  addFriend(from, to){
+    return this.http.post(this.env.API_URL + '/User/RequestFriendship', { idPerson1: from, idPerson2: to });
+  }
+
+  respondInvitation(from, to, action){
+    return this.http.post(this.env.API_URL + '/User/AcceptDeclineFriendship', { idPerson1: from, idPerson2: to, action: action });
+  } 
+
+  getFriends(userId){
+    return this.http.post(this.env.API_URL + '/User/ListFriendship', { idPerson2: userId });
+  }
+
+  getFriendshipRequests(userId){
+    return this.http.post(this.env.API_URL + '/User/ListPendingFriendship', { idPerson2: userId });
+  }
 }

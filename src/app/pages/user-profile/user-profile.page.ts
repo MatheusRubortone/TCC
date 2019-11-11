@@ -10,7 +10,8 @@ import { DataService } from 'src/app/services/data_service/data.service';
 import { UtilService } from 'src/app/services/util_service/util.service';
 import { Evento } from 'src/app/models/event';
 import { EventService } from 'src/app/services/event_service/event.service';
-import { Select } from 'ionic-angular';
+import { Select, Alert } from 'ionic-angular';
+import { AlertService } from 'src/app/services/alert_service/alert.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -45,7 +46,8 @@ export class UserProfilePage implements OnInit {
     public modalController: ModalController,
     private navCtrl: NavController,
     private evSvc: EventService,
-    private utilService: UtilService) {
+    private utilService: UtilService,
+    private alertService: AlertService) {
 
     this.user = new User("", "", "", "", "", this.interesses, uSvc);
 
@@ -214,6 +216,16 @@ export class UserProfilePage implements OnInit {
       genre.push({action: "exclude", id: this.getInteresseId(element)});
     });
     return genre;
+  }
+
+  onConvidarClick(){
+    console.log(this.uSvc.getUId(), this.userId);
+    this.uSvc.addFriend(this.uSvc.getUId(), this.userId).subscribe(data=>{
+      this.alertService.presentToast("Solicitação de amizade enviada!");
+    },
+    error=>{
+      this.alertService.presentToast("Houve um erro. Tente novamente.");
+    })
   }
 }
 

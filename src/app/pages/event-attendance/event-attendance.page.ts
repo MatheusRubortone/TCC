@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user_service/user.service';
 export class EventAttendancePage implements OnInit {
 
   idEvento;
-  presencas: Atendee[];
+  presencas: Atendee[] = [];
   uId;
 
   constructor(private route: ActivatedRoute,
@@ -28,7 +28,7 @@ export class EventAttendancePage implements OnInit {
       this.idEvento = this.route.snapshot.data['special'];
     }
 
-    this.getEventAttendees('1');
+    this.getEventAttendees(this.idEvento);
   }
 
   getEventAttendees(eventId) {

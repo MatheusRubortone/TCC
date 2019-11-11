@@ -5,37 +5,74 @@
 </ion-header>
 
 <ion-content>
-  <ion-input type="text" id="campoBusca" placeholder="Buscar Eventos"></ion-input>
+  <ion-input type="text" id="campoBusca" placeholder="Buscar Eventos" [(ngModel)]="busca"
+    (ionInput)="searchOnInput($event)"></ion-input>
   <br>
-  <div id="es">
-    <h3 id="est">Está Sozinho(a)?</h3>
-    <p id="estx">Vamos encontrar uma companhia para você!</p>
-    <p class="seta" ><ion-icon id="icon" name="arrow-forward"></ion-icon></p>
+
+  <div *ngIf="modoBusca">
+    <div id="spinner" *ngIf="loading">
+        <ion-spinner name="crescent"></ion-spinner>
+    </div>
+     
+    <div id="msgContainer" *ngIf="!achouEventos && !loading">
+      <p id="semEventos">Nenhum evento encontrado :(</p>
+    </div>
+
+    <div class="divList" *ngIf="achouEventos">
+      <ion-list class="list">
+        <br>
+        <div class="card" style="background-image: url(/assets/party.png);" *ngFor="let event of resultadoBusca">
+          <div class="layer">
+            <div class="info" (click)="eventOnClick(event)">
+              <div class="card-toptitle">
+                <p class="p-toptitle">{{event.starDateExtenso}}</p>
+              </div>
+              <div class="card-title">
+                <p class="p-title">{{event.title}}</p>
+              </div>
+              <div class="card-subtitle">
+                <p class="p-subtitle">{{event.place}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-list>
+    </div>
+
   </div>
 
-  <br>
-  <h3 id="title">Próximos Eventos</h3>
-  <br>
+  <div *ngIf="!modoBusca">
+    <div id="es">
+      <h3 id="est">Está Sozinho(a)?</h3>
+      <p id="estx">Vamos encontrar uma companhia para você!</p>
+      <p class="seta">
+        <ion-icon id="icon" name="arrow-forward"></ion-icon>
+      </p>
+    </div>
+
+    <br>
+    <h3 id="title">Próximos Eventos</h3>
+    <br>
 
 
-  <!-- Outro jeio de fazer os slider -->
-  <!-- <div class="container">
-    <div class="scroll" scrollX="true">
-      <div class="itemLista" *ngFor="let item of items">
-        <ion-thumbnail  >
-          <ion-img [src]="item.foto"></ion-img>
-        </ion-thumbnail>
-        <div class="itemContent">
-          <h3 class="titleEvent">{{item.title}}</h3>
-          <p class="descEvento">Festa massa no lugar tal e tal</p>
-          <p class="descEvento">Endereco tal</p>
-          <p class="descEvento">Data tal</p>
+    <!-- Outro jeio de fazer os slider -->
+    <!-- <div class="container">
+      <div class="scroll" scrollX="true">
+        <div class="itemLista" *ngFor="let item of items">
+          <ion-thumbnail  >
+            <ion-img [src]="item.foto"></ion-img>
+          </ion-thumbnail>
+          <div class="itemContent">
+            <h3 class="titleEvent">{{item.title}}</h3>
+            <p class="descEvento">Festa massa no lugar tal e tal</p>
+            <p class="descEvento">Endereco tal</p>
+            <p class="descEvento">Data tal</p>
+          </div>
         </div>
       </div>
-    </div>
-  </div> -->
+    </div> -->
 
-  <ion-slides [options]="slider0pts" class="slides">
+    <ion-slides [options]="slider0pts" class="slides">
       <ion-slide *ngFor="let event of events" class="slide">
         <ion-card class="slideDiv" style="background-image: url(/assets/party.png);">
           <div class="layer">
@@ -55,28 +92,31 @@
         </h3>
       </ion-slide>
     </ion-slides>
-  <br>
+    <br>
 
-  <h3 id="title">Populares entre seus amigos</h3>
-  <br>
+    <h3 id="title">Populares entre seus amigos</h3>
+    <br>
 
-  <ion-slides [options]="slider0pts" class="slides">
-    <ion-slide *ngFor="let event of events" class="slide">
-      <ion-card class="slideDiv" style="background-image: url(/assets/party.png);">
-        <div class="layer">
-          <div class="slideContent">
-            <p class="dataEvento">{{event.dataEvento}}</p>
-            <p class="nomeEvento">Lorem.</p>
-            <p class="localEvento">{{event.localEvento}}</p>
+    <ion-slides [options]="slider0pts" class="slides">
+      <ion-slide *ngFor="let event of events" class="slide">
+        <ion-card class="slideDiv" style="background-image: url(/assets/party.png);">
+          <div class="layer">
+            <div class="slideContent">
+              <p class="dataEvento">{{event.dataEvento}}</p>
+              <p class="nomeEvento">Lorem.</p>
+              <p class="localEvento">{{event.localEvento}}</p>
+            </div>
+            <div class="iconDiv">
+              <ion-icon class="heartIcon" name="heart-empty"></ion-icon>
+            </div>
           </div>
-          <div class="iconDiv">
-            <ion-icon class="heartIcon" name="heart-empty"></ion-icon>
-          </div>
-        </div>
-      </ion-card>
-    </ion-slide>
-    <ion-slide class="maisEventos">
-      <h3>Mais Eventos <ion-icon id="icon" name="arrow-forward"></ion-icon>
-      </h3>
-    </ion-slide>
-  </ion-slides>
+        </ion-card>
+      </ion-slide>
+      <ion-slide class="maisEventos">
+        <h3>Mais Eventos <ion-icon id="icon" name="arrow-forward"></ion-icon>
+        </h3>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+</ion-content>

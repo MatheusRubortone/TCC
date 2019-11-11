@@ -78,4 +78,8 @@ export class EventService {
   getAttendees(eventId){
     return this.http.post(this.env.API_URL+'/Event/getUsersConfirmed', {id: eventId});  
   }
+
+  searchEvent(search: string){
+    return this.http.post(this.env.API_URL+'/Event/EventsWithFilter', {key: "texto", value: search});
+  }
 }

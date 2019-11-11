@@ -1,9 +1,58 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>friends</ion-title>
+    <ion-title id="headerTitle">Don't Go Alone</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-segment mode="md" (ionChange)="segmentChanged()" [(ngModel)]="segment" color="primary" scrollable>
+  <ion-segment-button value="0" mode="md" checked>
+    <p>Amigos</p>
+  </ion-segment-button>
+  <ion-segment-button value="1" mode="md">
+    <p>Solicitações</p>
+  </ion-segment-button>
+</ion-segment>
 
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-slides #slides (ionSlideDidChange)="slideChanged()" class="slides">
+    <ion-slide class="slide">
+      <div *ngIf="!amigos.length">
+        <p id="semAmigos">Você ainda não tem nenhum amigo!</p>
+      </div>
+      <div class="divList" *ngIf="amigos.length">
+        <ion-list class="list">
+          <ion-item id="amigoItem" *ngFor="let amigo of amigos" (click)="openProfile(amigo.id)">
+            <div id="imagemPerfil" style="background-image: url(/assets/party.png);"></div>
+            <p id="nomeAmigo">{{amigo.nome}}</p>
+            <ion-icon name="arrow-forward"></ion-icon>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div id="msgContainer" *ngIf="!convites.length">
+        <p id="semAmigos">Não há novas solicitações de amizade!</p>
+      </div>
+      <div class="divList" *ngIf="convites.length">
+        <ion-list class="list">
+          <ion-item id="conviteItem" *ngFor="let convite of convites">
+            <div id="imagemPerfil" style="background-image: url(/assets/party.png);" (click)="openProfile(convite.fromUser)"></div>
+            <div id="infoConvite">
+              <div id="infoNome">
+                <p id="nomeConvite">{{convite.nomeFromUser}}</p>
+              </div>
+              <div id="opcoes">
+                <div id="aceitar" (click)="acceptRequest(convite)">Aceitar</div>
+                <div id="recusar" (click)="denyRequest(convite)">Recusar</div>
+              </div>
+            </div>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-slide>
+
+  </ion-slides>
 </ion-content>

@@ -1,0 +1,164 @@
+#headerTitle{
+    font-family:'Chewy Regular', sans-serif;
+    background: linear-gradient(to right,#9400d3 0%, #ff69b4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+ion-content{
+    --ion-background-color: #fafafa;
+}
+
+ion-spinner{
+    display: block;
+    margin: auto;
+    top: 25%;
+}
+
+.ios{
+    ion-segment{
+        background-color: white;
+    }
+}
+
+ion-segment-button{
+    font-size: 4vw;
+    width: 2.5vw;
+    letter-spacing: 0vw;
+}
+
+
+.md{
+    ion-segment{
+        background-color:#fafafa;
+    }
+} 
+
+ion-toolbar{
+    background-color: white;
+}
+
+ion-refresher{
+    display: block;
+    position: relative;
+    height: 60px;
+}
+
+.slide{
+    width: 100%;
+    height: 100%;
+}
+
+.slides{
+    width: 100%;
+    height: 100%;
+}
+
+.list{
+    position: relative;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.divList{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+#imagemPerfil{
+    height: 20vw;
+    width: 20vw;
+    background-size: cover;
+    background-position: center center;
+    border-radius: 100%;
+    display: inline-block;
+    margin-right: 5%;
+}
+
+#amigoItem{
+    padding-top: 3%;
+    padding-bottom: 3%;
+    width: 95%;
+    border-bottom: 1px solid var(--ion-color-primary);
+    margin: auto;
+}
+
+#conviteItem{
+    padding-top: 3%;
+    padding-bottom: 3%;
+    width: 95%;
+    border-bottom: 1px solid var(--ion-color-primary);
+    margin: auto;
+
+    ion-icon{
+        font-size: 10vw;
+    }
+}
+
+#nomeAmigo{
+    font-size: 5vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-right: 5%;
+}
+
+#nomeAmigo{
+    font-size: 5vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-right: 5%;
+}
+
+ion-icon{
+    color: var(--ion-color-primary);  
+    margin-top: 1%;
+}
+
+#semAmigos{
+    font-family: 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+    color: #47525E;
+    font-size: 5vw;
+    overflow-wrap: break-word;
+}
+
+#infoConvite{
+    width: 	75%;
+    height: 100%;
+}
+
+#infoNome{
+    height: 50%;
+    width: 100%;
+}
+
+#opcoes{
+    height: 50%;
+    width: 100%;
+}
+
+div{
+    border: 1px solid white;
+}
+
+#aceitar{
+    width: 45%;
+    float: left;
+    border-radius: 5px;
+    color: white;
+    background-color: var(--ion-color-primary);
+    margin-right: 2.5%;
+    text-align: center;
+    padding: 1.5%
+}
+
+#recusar{
+    width: 45%;
+    float: left;
+    border-radius: 5px;
+    color:  var(--ion-color-primary);
+    background-color:white;
+    border: 1px solid var(--ion-color-primary);
+    text-align: center;
+    padding: 1.5%
+}

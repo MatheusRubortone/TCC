@@ -5,7 +5,11 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+    <div *ngIf="presencas.length < 1" id="msgContainer">
+      <br><br>
+        <p id="semEventos">Ainda não há nenhuma presença confirmada :(</p>
+      </div>
+  <ion-list *ngIf="presencas.length > 0">
     <ion-item *ngFor="let presenca of presencas" (click)="openProfile(presenca.id)">
       <div id="img">
         <div id="imagemAtendee" style="background-image: url(/assets/party.png);"></div>

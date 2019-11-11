@@ -68,7 +68,7 @@ export class EventsPage implements OnInit {
       if (this.savedEvents.length == 0) this.getEventosSalvos();
     }
     else if (await this.slider.getActiveIndex() == 1) {
-      if (this.savedEvents.length == 0) this.getEventosConfirmados();
+      if (this.confirmedEvents.length == 0) this.getEventosConfirmados();
     }
     else if (await this.slider.getActiveIndex() == 3) {
       if (this.createdEvents.length == 0) this.getEventosByOwner();

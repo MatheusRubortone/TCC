@@ -47,3 +47,18 @@ ion-item{
         color: var(--ion-color-primary);  
     }
 }
+
+#semEventos{
+    font-family: 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+    color: #47525E;
+    font-size: 5vw;
+    overflow-wrap: break-word;
+}
+
+#msgContainer{
+    width: 90%;
+    height: auto;
+    overflow: auto;
+    margin: auto;
+    text-align: center;
+}
