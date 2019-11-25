@@ -61,34 +61,37 @@ export class RegisterPage implements OnInit {
 
   async register(form: NgForm) {
     await this.lodingService.presentLoading();
-    this.authService.register(form.value.name, form.value.email, form.value.password, form.value.birthDate, form.value.genero).subscribe(
-      data => {
-        let response = data.json();
-        console.log(response);
-        if (response['_codRetRequest'] == 1)
-          this.authService.login(form.value.email, form.value.password).subscribe(
-          data => {
-            let response = data.json();
-            this.lodingService.dismiss();
-            if (response._codRetRequest > 0) this.navCtrl.navigateRoot('/tabs');
-            else this.alertService.presentToast("Falha no login. Usuário ou senha inválidos.");
-          },
-          error => {
-            this.lodingService.dismiss();
-            this.alertService.presentToast("Falha no login. Tente Novamente.");
-            console.log(error);
-          }
-        );
-        else if(response['_codRetRequest'] == 888)
-          this.lodingService.dismiss();
-          this.erroEmail = true;
-      },
-      error => {
-        this.lodingService.dismiss();
-        this.alertService.presentToast("Falha no cadastro. Tente Novamente.");
-        console.log(error);
-      }
-    );
+    const response = await this.authService.register(form.value.name, form.value.email, form.value.password, form.value.birthDate, form.value.genero)
+    this.alertService.presentToast(response.status + " | " + response.data);
+    if(response.status == 200) this.navCtrl.navigateRoot('/tabs');
+    // .subscribe(
+    //   data => {
+    //     let response = data.json();
+    //     console.log(response);
+    //     if (response['_codRetRequest'] == 1)
+    //       this.authService.login(form.value.email, form.value.password).subscribe(
+    //       data => {
+    //         let response = data.json();
+    //         this.lodingService.dismiss();
+    //         if (response._codRetRequest > 0) this.navCtrl.navigateRoot('/tabs');
+    //         else this.alertService.presentToast("Falha no login. Usuário ou senha inválidos.");
+    //       },
+    //       error => {
+    //         this.lodingService.dismiss();
+    //         this.alertService.presentToast("Falha no login. Tente Novamente. 1 " + error);
+    //         console.log(error);
+    //       }
+    //     );
+    //     else if(response['_codRetRequest'] == 888)
+    //       this.lodingService.dismiss();
+    //       this.erroEmail = true;
+    //   },
+    //   error => {
+    //     this.lodingService.dismiss();
+    //     this.alertService.presentToast("Falha no cadastro. Tente Novamente. 2 " + error);
+    //     console.log(error);
+    //   }
+    // );
   }
 
   matchingPasswords(passwordKey: string, confirmPasswordKey: string) {

@@ -20,7 +20,7 @@ import { AlertService } from 'src/app/services/alert_service/alert.service';
 })
 
 export class UserProfilePage implements OnInit {
-  
+
   @ViewChild('mySelect') selectRef: Select;
 
   userId;
@@ -34,6 +34,7 @@ export class UserProfilePage implements OnInit {
   interessesList = [];
   hideEvents: boolean = false;
   hideInteresses: boolean = false;
+  statusAmizade;
 
   constructor(private authService: AuthService,
     private nav: NavController,
@@ -63,7 +64,7 @@ export class UserProfilePage implements OnInit {
     this.interesses = [];
     this.user.interesses = this.interesses;
     this.interessesUsuario = [];
-    
+
 
     this.interessesList = [
       "Festa e Show",
@@ -90,7 +91,7 @@ export class UserProfilePage implements OnInit {
 
   getUserInfo(userId) {
     this.loadSvc.presentLoading();
-    this.uSvc.getUserProfile(userId).subscribe(data => {
+    this.uSvc.getUserProfile(userId, this.uSvc.getUId()).subscribe(data => {
       console.log(data.json());
       let retorno = data.json();
       this.interesses = [];
@@ -117,6 +118,7 @@ export class UserProfilePage implements OnInit {
 
       this.events.length > 0 ? this.hideEvents = false : this.hideEvents = true;
       this.interessesUsuario.length > 0 ? this.hideInteresses = false : this.hideInteresses = true;
+      this.statusAmizade = retorno._statusAmizade;
 
       this.loadSvc.dismiss();
       this.userProfile = (userId == this.uSvc.getUId());
@@ -136,7 +138,7 @@ export class UserProfilePage implements OnInit {
   }
 
   eventOnClick(event) {
-    this.evSvc.getEvent(event.eventId).subscribe(data=>{
+    this.evSvc.getEvent(event.eventId, this.uSvc.getUId()).subscribe(data => {
       let retorno = data.json();
       var evento = new Evento(
         retorno._idEvent,
@@ -151,7 +153,7 @@ export class UserProfilePage implements OnInit {
         retorno._state,
         this.utilService);
 
-        this.navigateToEvent(event.id, evento);
+      this.navigateToEvent(event.id, evento);
     })
   }
 
@@ -160,8 +162,8 @@ export class UserProfilePage implements OnInit {
     this.navCtrl.navigateRoot('/event-desc/' + id);
   }
 
-  getInteresseId(int: string){
-    switch(int){
+  getInteresseId(int: string) {
+    switch (int) {
       case "Festa e Show":
         return "1";
       case "Arte e Cultura":
@@ -185,19 +187,19 @@ export class UserProfilePage implements OnInit {
     }
   }
 
-  abrirSelect(){
+  abrirSelect() {
     console.log("entrou");
     this.selectRef.open();
   }
 
-  onChange(){
+  onChange() {
     console.log("entrou on change");
-    this.uSvc.addInteresses(this.montarObjetoChamada()).subscribe(data=>{
+    this.uSvc.addInteresses(this.montarObjetoChamada()).subscribe(data => {
       console.log(data);
     });
   }
 
-  montarObjetoChamada(){
+  montarObjetoChamada() {
     var genero = this.montarGenero();
     var objeto = {
       idPerson: this.userId,
@@ -207,25 +209,26 @@ export class UserProfilePage implements OnInit {
     return objeto;
   }
 
-  montarGenero(){
+  montarGenero() {
     var genre = [];
-    this.interessesList.forEach(element=>{
-      if(this.interessesUsuario.includes(element))
-        genre.push({action: "include", id: this.getInteresseId(element)});
+    this.interessesList.forEach(element => {
+      if (this.interessesUsuario.includes(element))
+        genre.push({ action: "include", id: this.getInteresseId(element) });
       else
-      genre.push({action: "exclude", id: this.getInteresseId(element)});
+        genre.push({ action: "exclude", id: this.getInteresseId(element) });
     });
     return genre;
   }
 
-  onConvidarClick(){
+  onConvidarClick() {
     console.log(this.uSvc.getUId(), this.userId);
-    this.uSvc.addFriend(this.uSvc.getUId(), this.userId).subscribe(data=>{
+    this.uSvc.addFriend(this.uSvc.getUId(), this.userId).subscribe(data => {
       this.alertService.presentToast("Solicitação de amizade enviada!");
+      this.statusAmizade = 'P';
     },
-    error=>{
-      this.alertService.presentToast("Houve um erro. Tente novamente.");
-    })
+      error => {
+        this.alertService.presentToast("Houve um erro. Tente novamente.");
+      })
   }
 }
 

@@ -1,7 +1,7 @@
 <ion-content>
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content></ion-refresher-content>
-      </ion-refresher>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="eventCover" style="background-image: url(/assets/party.png);"></div>
   <div class="info">
     <div class="data">
@@ -25,7 +25,7 @@
       <ion-icon [name]="event.saved ? 'heart' : 'heart-empty'"></ion-icon>
       <p>Interesse</p>
     </div>
-    <div class="invite">
+    <div class="invite" (click)="navigateToInvitations()">
       <ion-icon name="person-add"></ion-icon>
       <p>Convidar</p>
     </div>

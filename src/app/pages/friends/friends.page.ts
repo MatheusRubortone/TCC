@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides } from '@ionic/angular';
+import { IonSlides, AlertController } from '@ionic/angular';
 import { TabsService } from 'src/app/services/tabs_service/tabs.service';
 import { SolicitacaoAmizade } from 'src/app/models/solicitacaoAmizade';
 import { User } from 'src/app/models/user';
@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user_service/user.service';
 import { AlertService } from 'src/app/services/alert_service/alert.service';
 import { DataService } from 'src/app/services/data_service/data.service';
 import { Router } from '@angular/router';
+import { Amigo } from 'src/app/models/amigo';
 
 @Component({
   selector: 'app-friends',
@@ -20,12 +21,14 @@ export class FriendsPage implements OnInit {
   segment = this.tabsSvc.getSegment();
   convites: SolicitacaoAmizade[] = [];
   amigos: Amigo[] = [];
+  selection: boolean = false;
 
   constructor(private tabsSvc: TabsService,
     private userService: UserService,
     private alertService: AlertService,
     private dataService: DataService,
-    private router: Router) { }
+    private router: Router,
+    public alertController: AlertController) { }
 
   ngOnInit() {
   }
@@ -35,7 +38,6 @@ export class FriendsPage implements OnInit {
       this.getAmigos();
     }
     else if (await this.slider.getActiveIndex() == 1) {
-      console.log("entrou 1");
       this.getSolicitacoes();
     }
   }
@@ -53,7 +55,6 @@ export class FriendsPage implements OnInit {
       if (this.amigos.length == 0) this.getAmigos();
     }
     else if (await this.slider.getActiveIndex() == 1) {
-      console.log("entrou 1");
       if (this.convites.length == 0) this.getSolicitacoes();
     }
   }
@@ -99,15 +100,14 @@ export class FriendsPage implements OnInit {
       var resultado = data.json();
       resultado.forEach(element => {
         var amigo = new Amigo(element._idPerson, element._name);
-
         this.amigos.push(amigo);
       });
     });
   }
 
-  getSolicitacoes(){
+  getSolicitacoes() {
     this.convites = [];
-    this.userService.getFriendshipRequests(this.userService.getUId()).subscribe(data=>{
+    this.userService.getFriendshipRequests(this.userService.getUId()).subscribe(data => {
       var resultado = data.json();
       resultado.forEach(element => {
         var solicitacao = new SolicitacaoAmizade(element._idPerson,
@@ -115,18 +115,44 @@ export class FriendsPage implements OnInit {
           element._idFriendship,
           element._name);
 
-          this.convites.push(solicitacao);
+        this.convites.push(solicitacao);
       });
     });
   }
-}
 
-class Amigo {
-  constructor(id: number, nome: string) {
-    this.id = id;
-    this.nome = nome;
+  public selectItem(index: number, amigo: Amigo) {
+    this.selection = true;
   }
 
-  id: number;
-  nome: string;
+  public unselectAll() {
+    this.selection = false;
+  }
+
+  excluirAmigo(amigo: Amigo){
+    this.userService.respondInvitation(this.userService.getUId(), amigo.id, "D").subscribe(data => {
+      this.alertService.presentToast("Amizade excluída.");
+      this.amigos.splice(this.amigos.indexOf(amigo), 1);
+    });
+  }
+
+  async presentAlertConfirm(amigo: Amigo) {
+    const alert = await this.alertController.create({
+      header: 'Excluir Amizade',
+      message: 'Tem certeza que quer excluir essa amizade?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+        }, {
+          text: 'Excluir',
+          handler: () => {
+            this.excluirAmigo(amigo);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 }

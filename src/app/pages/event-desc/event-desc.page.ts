@@ -7,6 +7,8 @@ import { UserService } from 'src/app/services/user_service/user.service';
 import { DataService } from 'src/app/services/data_service/data.service';
 import { UtilService } from 'src/app/services/util_service/util.service';
 import { LoadingService } from 'src/app/services/loading_service/loading.service';
+import { ModalController } from '@ionic/angular';
+
 declare var google;
 
 @Component({
@@ -41,7 +43,8 @@ export class EventDescPage implements OnInit {
     private dataService: DataService,
     private evSvc: EventService,
     private utilService: UtilService,
-    private loadSvc: LoadingService) { }
+    private loadSvc: LoadingService,
+    private modalCtrl: ModalController) { }
 
   ngOnInit() {
     if (this.route.snapshot.data['special']) {
@@ -63,26 +66,26 @@ export class EventDescPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.refresh();
+    //this.refresh();
   }
 
   toggleSave(): void {
     this.event.saved = !this.event.saved;
     if(this.event.confirmed) this.event.confirmed = !this.event.saved;
 
-    this.eventSvc.alterarSaveEvento(this.event,"I");
+    this.event.saved? this.eventSvc.alterarSaveEvento(this.event,"I") : this.eventSvc.alterarSaveEvento(this.event,"X");
   }
 
   toggleConf(): void {
     this.event.confirmed = !this.event.confirmed;
     if(this.event.saved) this.event.saved = !this.event.confirmed;
 
-    this.eventSvc.alterarSaveEvento(this.event, "C");
+    this.event.confirmed? this.eventSvc.alterarSaveEvento(this.event, "C") : this.eventSvc.alterarSaveEvento(this.event,"X");
   }
 
   refresh() {
     this.loadSvc.presentLoading();
-    this.evSvc.getEvent(this.event.id).subscribe(data => {
+    this.evSvc.getEvent(this.event.id, this.uSvc.getUId()).subscribe(data => {
       console.log(data.json());
       let retorno = data.json();
       this.event = new Evento(
@@ -107,6 +110,11 @@ export class EventDescPage implements OnInit {
 
       this.getLatLong(this.event.address);
 
+      this.loadSvc.dismiss();
+    },
+    
+    error=>{
+      console.log(error.json());
       this.loadSvc.dismiss();
     });
   }
@@ -150,4 +158,10 @@ export class EventDescPage implements OnInit {
     this.dataService.setData(this.event.id, this.event.id);
     this.router.navigateByUrl('/event-attendance/' + this.event.id);
   }
+
+  navigateToInvitations(){
+    this.dataService.setData(this.event.id, this.event.id);
+    this.router.navigateByUrl('/event-invitations/' + this.event.id);
+  }
+
 }

@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import { Http } from '@angular/http';
 import * as moment from 'moment';
 import { UserService } from '../user_service/user.service';
+import { HTTP } from '@ionic-native/http/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +18,13 @@ import { UserService } from '../user_service/user.service';
 export class AuthService {
   isLoggedIn = false;
   token: any;
-
   data: JSON;
   us: User;
-
+  headers;
+  
   constructor(
     private http: Http,
+    private http2: HTTP,
     private storage: NativeStorage,
     private env: EnvService,
     private alertService: AlertService,
@@ -32,7 +34,7 @@ export class AuthService {
 
   login(email: String, password: String) {
     return this.http.post(this.env.API_URL + '/user/login',
-      { email: email, password: password }
+      { email: email, password: password }, 
     ).pipe(
       tap(token => {
         console.log(token["_body"]);
@@ -55,9 +57,8 @@ export class AuthService {
 
   register(name: String, email: String, password: String, dtNascimento: String, genero: String) {
     console.log(dtNascimento.toString());
-    return this.http.post(this.env.API_URL + '/user/register/',
-      { email: email, password: password, birthdate: dtNascimento.toString(), user: name, genre: genero }
-    )
+    return this.http2.post(this.env.API_URL + '/user/register/',
+      { email: email, password: password, birthdate: dtNascimento.toString(), user: name, genre: genero }, this.headers);
   }
 
   logout() {

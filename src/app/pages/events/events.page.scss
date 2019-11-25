@@ -7,6 +7,11 @@
 
 ion-content{
     --ion-background-color: #fafafa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+div{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 ion-spinner{
@@ -173,4 +178,108 @@ ion-refresher{
     color: #47525E;
     font-size: 5vw;
     overflow-wrap: break-word;
+}
+
+//------------------------------ Convites -------------------------------
+.divList{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.list{
+    position: relative;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+}
+
+#conviteItem{
+    padding-top: 3%;
+    padding-bottom: 3%;
+    width: 95%;
+    border-bottom: 1px solid var(--ion-color-primary);
+    margin: auto;
+
+    ion-icon{
+        font-size: 10vw;
+    }
+}
+
+#imagemPerfil{
+    height: 20vw;
+    width: 20vw;
+    background-size: cover;
+    background-position: center center;
+    border-radius: 100%;
+    display: inline-block;
+    margin-right: 5%;
+}
+
+#infoConvite{
+    width: 	100%;
+    height: 100%;
+}
+
+#infoNome{
+    width: 100%;
+    color: #47525E;
+    padding: 0.5%;
+}
+
+#opcoes{
+    width: 100%;
+}
+
+#nomeConvite{
+    margin: 0 !important;
+    font-size: 3.5vw;
+}
+
+#aceitar{
+    width: 45%;
+    float: left;
+    border-radius: 5px;
+    color: white;
+    background-color: var(--ion-color-primary);
+    margin-right: 2.5%;
+    text-align: center;
+    padding: 1.5%
+}
+
+#recusar{
+    width: 45%;
+    float: left;
+    border-radius: 5px;
+    color:  var(--ion-color-primary);
+    background-color:white;
+    border: 1px solid var(--ion-color-primary);
+    text-align: center;
+    padding: 1.5%
+}
+
+// #slideConvites{
+//     div{
+//         border: 1px solid red;
+//     }
+// }
+
+#nomeEvento{
+    font-size: 5vw;
+    color: black;
+    padding: 0.3%;
+}
+
+#dataEvento{
+    font-size: 4vw;
+    color: var(--ion-color-primary);
+    padding: 0.5%;
+}
+
+#localEvento{
+    font-size: 4.5vw;
+    color: #47525E;
+    padding: 0.5%;
+    margin-bottom: 2%;
 }

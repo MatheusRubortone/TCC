@@ -25,8 +25,8 @@ export class EventService {
     )
   }
 
-  getEvent(idEvento: string){
-    return this.http.post(this.env.API_URL + '/event/get', { idEvent: idEvento })
+  getEvent(idEvento: string, user: string){
+    return this.http.post(this.env.API_URL + '/event/get', { idEvent: idEvento, idUser: user})
   }
 
   editEvent(idEvento: string,title: string, idOwner: string, description: string, startDate: string, endDate: string, place: string, address: string, cep: string) {
@@ -81,5 +81,21 @@ export class EventService {
 
   searchEvent(search: string){
     return this.http.post(this.env.API_URL+'/Event/EventsWithFilter', {key: "texto", value: search});
+  }
+
+  inviteToEvent(sender: string, receiver: string, event: string){
+    return this.http.post(this.env.API_URL + '/Event/InviteTo', { senderID: sender, receiverID: receiver, eventID: event });
+  }
+
+  listPendingInvitations(userid: string){
+    return this.http.post(this.env.API_URL + '/Event/ShowPendingInvites', {userID: userid});
+  }
+
+  listPeopleToInvite(sender: string, event: string){
+    return this.http.post(this.env.API_URL + '/Event/ListPeopleToInvite', { senderID: sender, eventID: event });
+  }
+
+  respondInvitation(user, event, action){
+    return this.http.post(this.env.API_URL + '/Event/InviteResponse',{userID: user,eventID: event , action: action});
   }
 }

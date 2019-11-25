@@ -16,8 +16,8 @@ import { Http, HttpModule } from '@angular/http';
 import { Moment } from 'moment';
 import { FormsModule } from '@angular/forms'; 
 import { ModalInteressesPageModule } from './pages/modal-interesses/modal-interesses.module';
-
-
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { HTTP } from '@ionic-native/http/ngx';
 
 
 @NgModule({
@@ -32,10 +32,12 @@ import { ModalInteressesPageModule } from './pages/modal-interesses/modal-intere
             FormsModule],
   providers: [
     StatusBar,
+    ImagePicker,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     NativeStorage,
-    DatePipe
+    DatePipe,
+    HTTP
   ],
   bootstrap: [AppComponent]
 })

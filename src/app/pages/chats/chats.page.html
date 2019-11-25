@@ -1,9 +1,29 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>chats</ion-title>
+    <ion-title id="headerTitle">Don't Go Alone</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
-    <ion-spinner></ion-spinner>
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="selectFriend()">
+          <ion-icon name="add" color="white"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+  <div *ngIf="!conversas.length">
+    <br><br><br>
+    <p id="semConversas">Você ainda não tem nenhuma conversa!</p>
+  </div>
+  <div class="divList" *ngIf="conversas.length">
+    <ion-list class="list">
+      <ion-item id="conversaItem" *ngFor="let conversa of conversas">
+        <div id="imagemPerfil" style="background-image: url(/assets/party.png);"></div>
+        <p id="nomeAmigo">{{conversa.chatName}}</p>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

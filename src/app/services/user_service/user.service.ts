@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { HTTP } from '@ionic-native/http/ngx';
 import { EnvService } from '../env_service/env.service';
 import { User } from 'src/app/models/user';
 
@@ -8,21 +9,20 @@ import { User } from 'src/app/models/user';
 })
 export class UserService {
 
+  headers;
+
   private uId: string;
 
   constructor(private http: Http,
+    private http2 : HTTP,
     private env: EnvService) { }
 
-  public setUId(id: string) {
-    this.uId = id;
-  }
+  public setUId(id: string) { this.uId = id; }
 
-  public getUId() {
-    return this.uId;
-  }
+  public getUId() { return this.uId; }
 
-  public getUserProfile(userId) {
-    return this.http.post(this.env.API_URL + '/User/GetProfile', { id: userId });
+  public getUserProfile(userId, seeker) {
+    return this.http.post(this.env.API_URL + '/User/GetProfile', { id: userId, seeker: seeker });
   }
 
   updateUserProfile(user: User) {
@@ -31,8 +31,7 @@ export class UserService {
   }
 
   addInteresses(interessesArray){
-    return this.http.post(this.env.API_URL + '/User/ActionGenres',
-      interessesArray);
+    return this.http.post(this.env.API_URL + '/User/ActionGenres', interessesArray);
   }
 
   getEstadoCivil(siglaEC): string {
@@ -51,12 +50,16 @@ export class UserService {
   respondInvitation(from, to, action){
     return this.http.post(this.env.API_URL + '/User/AcceptDeclineFriendship', { idPerson1: from, idPerson2: to, action: action });
   } 
-
+ 
   getFriends(userId){
     return this.http.post(this.env.API_URL + '/User/ListFriendship', { idPerson2: userId });
   }
 
   getFriendshipRequests(userId){
     return this.http.post(this.env.API_URL + '/User/ListPendingFriendship', { idPerson2: userId });
+  }
+
+  uploadAndSave(item){
+     let contact = { id: item.id, url: '', fullPath: '' };
   }
 }

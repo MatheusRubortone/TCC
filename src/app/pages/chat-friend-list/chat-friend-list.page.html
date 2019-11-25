@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Amigos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="!amigos.length">
+        <br><br><br>
+        <p id="semConversas">Você ainda não tem nenhuma conversa!</p>
+      </div>
+      <div class="divList" *ngIf="amigos.length">
+        <ion-list class="list">
+          <ion-item id="amigoItem" *ngFor="let amigo of amigos" (click)=abrirConversa(amigo.id)>
+            <div id="imagemPerfil" style="background-image: url(/assets/party.png);"></div>
+            <p id="nomeAmigo">{{amigo.nome}}</p>
+          </ion-item>
+        </ion-list>
+      </div>
+</ion-content>

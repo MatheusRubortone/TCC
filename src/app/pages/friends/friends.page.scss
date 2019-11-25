@@ -104,15 +104,10 @@ ion-refresher{
     margin-right: 5%;
 }
 
-#nomeAmigo{
-    font-size: 5vw;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-right: 5%;
-}
-
 ion-icon{
     color: var(--ion-color-primary);  
     margin-top: 1%;
+    font-size: 9vw;
 }
 
 #semAmigos{
@@ -138,7 +133,7 @@ ion-icon{
 }
 
 div{
-    border: 1px solid white;
+    border: 1px solid #fafafa;
 }
 
 #aceitar{

@@ -8,6 +8,8 @@ import { UserService } from 'src/app/services/user_service/user.service';
 import { DataService } from 'src/app/services/data_service/data.service';
 import { Router } from '@angular/router';
 import { utils } from 'protractor';
+import { SolicitacaoEvento } from 'src/app/models/solicitacaoEvento';
+import { AlertService } from 'src/app/services/alert_service/alert.service';
 
 @Component({
   selector: 'app-events',
@@ -23,6 +25,7 @@ export class EventsPage implements OnInit {
   isOwnEvent: Boolean;
   isSavedEvent: Boolean;
   isConfirmedEvent: Boolean;
+  convites: SolicitacaoEvento[] = [];
 
   @ViewChild('slides') slider: IonSlides;
 
@@ -34,7 +37,8 @@ export class EventsPage implements OnInit {
     private uSvc: UserService,
     private dataService: DataService,
     private router: Router,
-    private navCtrl: NavController) {
+    private navCtrl: NavController,
+    private alertService: AlertService) {
     this.createdEvents = [];
     this.savedEvents = [];
     this.confirmedEvents = [];
@@ -49,6 +53,9 @@ export class EventsPage implements OnInit {
     }
     else if (await this.slider.getActiveIndex() == 1) {
       if (this.confirmedEvents.length == 0) this.getEventosConfirmados();
+    }
+    else if (await this.slider.getActiveIndex() == 2) {
+      if (this.convites.length == 0) this.getConvitesPendentes();
     }
     else if (await this.slider.getActiveIndex() == 3) {
       if (this.createdEvents.length == 0) this.getEventosByOwner();
@@ -69,6 +76,9 @@ export class EventsPage implements OnInit {
     }
     else if (await this.slider.getActiveIndex() == 1) {
       if (this.confirmedEvents.length == 0) this.getEventosConfirmados();
+    }
+    else if (await this.slider.getActiveIndex() == 2) {
+      if (this.convites.length == 0) this.getConvitesPendentes();
     }
     else if (await this.slider.getActiveIndex() == 3) {
       if (this.createdEvents.length == 0) this.getEventosByOwner();
@@ -172,6 +182,66 @@ export class EventsPage implements OnInit {
     this.isLoading = false;
   }
 
+  async getConvitesPendentes() {
+    this.isLoading = true;
+    this.convites = [];
+    this.eventService.listPendingInvitations(this.uSvc.getUId()).subscribe(
+      data => {
+        var results = data.json();
+        results.forEach(element => {
+          this.convites.push(
+            new SolicitacaoEvento(element._idPerson,
+              element._Person,
+              +this.uSvc.getUId(),
+              element._idEvent,
+              element._title,
+              element._startDate,
+              element._place,
+              this.utilService)
+          );
+        });
+        this.isLoading = false;
+      }
+    );
+  }
+
+  respondRequest(convite: SolicitacaoEvento, acao: string) {
+    this.eventService.respondInvitation(this.uSvc.getUId(), convite.eventId, acao).subscribe(
+      data => {
+        if (acao == 'A')
+          this.alertService.presentToast("Convite aceito!");
+        else if (acao == 'R')
+          this.alertService.presentToast("Convite recusado.");
+
+        this.convites.splice(this.convites.indexOf(convite), 1);
+      }
+    );
+  }
+
+  navegarEventoConvite(idEvento) {
+    console.log(idEvento +' | '+ this.uSvc.getUId());
+    this.eventService.getEvent(idEvento, this.uSvc.getUId()).subscribe(
+      data => {
+        console.log(data.json());
+        let retorno = data.json();
+        var evento = new Evento(
+          retorno._idEvent,
+          retorno._title,
+          retorno._idOwner,
+          retorno._description,
+          retorno._startDate,
+          retorno._endDate,
+          retorno._place,
+          retorno._address,
+          retorno._cep,
+          retorno._state,
+          this.utilService);
+
+          this.navigateToEvent(evento.id, evento);
+        } 
+    );
+  }
+
 
   navigateToEvent(id, evento: Evento) {
     this.dataService.setData(id, evento);
@@ -191,6 +261,12 @@ export class EventsPage implements OnInit {
         event.target.complete();
       }, 1000);
     }
+    else if (await this.slider.getActiveIndex() == 2) {
+      setTimeout(() => {
+        this.getConvitesPendentes();
+        event.target.complete();
+      }, 1000);
+    }
     else if (await this.slider.getActiveIndex() == 3) {
       setTimeout(() => {
         this.getEventosByOwner();
@@ -205,6 +281,11 @@ export class EventsPage implements OnInit {
     evento.saved = !evento.saved;
     this.isSavedEvent = evento.saved;
     this.eventService.alterarSaveEvento(evento, "I");
+  }
+
+  openProfile(userId) {
+    this.dataService.setData(userId, userId);
+    this.router.navigateByUrl('user-profile/' + userId);
   }
 
 }

@@ -81,7 +81,30 @@
         </ion-list>
       </div>
     </ion-slide>
-    <ion-slide>
+    <ion-slide id="slideConvites">
+      <div id="msgContainer" *ngIf="!convites.length">
+        <p id="semEventos">Não há novos convites!</p>
+      </div>
+      <div class="divList" *ngIf="convites.length">
+        <ion-list class="list">
+          <ion-item id="conviteItem" *ngFor="let convite of convites">
+            <div id="infoConvite">
+              <div (click)="navegarEventoConvite(convite.eventId)">
+                <div id="infoNome">
+                  <p id="nomeConvite">{{convite.nomeFromUser}} te convidou para o evento:</p>
+                </div>
+                <div id="nomeEvento">{{convite.nomeEvento}}</div>
+                <div id="dataEvento">{{convite.dataEvento}}</div>
+                <div id="localEvento">{{convite.localEvento}}</div>
+              </div>
+              <div id="opcoes">
+                <div id="aceitar" (click)="respondRequest(convite, 'A')">Aceitar</div>
+                <div id="recusar" (click)="respondRequest(convite, 'R')">Recusar</div>
+              </div>
+            </div>
+          </ion-item>
+        </ion-list>
+      </div>
     </ion-slide>
     <ion-slide>
       <div *ngIf="!isOwnEvent">

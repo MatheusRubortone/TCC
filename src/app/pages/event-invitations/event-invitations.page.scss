@@ -1,0 +1,72 @@
+ion-input {
+    --padding-start:12px;
+    --padding-end: 12px;
+}
+
+ion-content{
+    --ion-background-color: #fafafa;
+}
+
+#campoBusca{
+    background-color: white;
+    width: 90%;
+    margin: auto;
+    margin-top: 5%;
+    border: 1px solid #e2e2e2;
+    border-radius: 5px;
+    height: 8%;
+    max-height: 50px;
+}
+
+#semAmigos{
+    font-family: 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+    color: #47525E;
+    font-size: 5vw;
+    overflow-wrap: break-word;
+    width: 90%;
+    margin: auto;
+}
+
+#imagemPerfil{
+    height: 20vw;
+    width: 20vw;
+    background-size: cover;
+    background-position: center center;
+    border-radius: 100%;
+    margin-right: 5%;
+    float: left;
+}
+
+#nomeAmigo{
+    font-size: 5vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-right: 5%;
+    float: left;
+}
+
+.info{
+    width: 80%;
+    height: 100%;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+    border-bottom: 1px solid var(--ion-color-primary);
+}
+
+.inviteIcon{
+    width: 20%;
+    height: 100%;
+    color: var(--ion-color-primary);
+    border-bottom: 1px solid var(--ion-color-primary);
+}
+
+ion-button{
+    --padding-start: 0;
+    --padding-end: 0;
+    font-size: 6vw;
+    align-content: center;
+    padding-top: 7.5%;
+    margin: auto;
+    height: 75%;
+}
+
+

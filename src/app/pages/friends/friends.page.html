@@ -24,10 +24,11 @@
       </div>
       <div class="divList" *ngIf="amigos.length">
         <ion-list class="list">
-          <ion-item id="amigoItem" *ngFor="let amigo of amigos" (click)="openProfile(amigo.id)">
+          <ion-item id="amigoItem" *ngFor="let amigo of amigos" (press)="selectItem()" (click)="selection?unselectAll():openProfile(amigo.id)">
             <div id="imagemPerfil" style="background-image: url(/assets/party.png);"></div>
             <p id="nomeAmigo">{{amigo.nome}}</p>
-            <ion-icon name="arrow-forward"></ion-icon>
+            <ion-icon name="arrow-forward" *ngIf="!selection"></ion-icon>
+            <ion-icon name="close" *ngIf="selection" (click)="presentAlertConfirm(amigo)"></ion-icon>
           </ion-item>
         </ion-list>
       </div>

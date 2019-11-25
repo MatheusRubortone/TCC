@@ -15,6 +15,9 @@ const routes: Routes = [
   { path: 'event-attendance/:id', resolve:{special: DataResolverService}, loadChildren: './pages/event-attendance/event-attendance.module#EventAttendancePageModule' },
   { path: 'user-profile/:id', resolve:{special: DataResolverService}, loadChildren: './pages/user-profile/user-profile.module#UserProfilePageModule' },
   { path: 'modal-interesses', loadChildren: './pages/modal-interesses/modal-interesses.module#ModalInteressesPageModule' },
+  { path: 'chat/:id', loadChildren: './pages/chat/chat.module#ChatPageModule' },
+  { path: 'event-invitations/:id',  resolve:{special: DataResolverService}, loadChildren: './pages/event-invitations/event-invitations.module#EventInvitationsPageModule' },
+  { path: 'chat-friend-list', loadChildren: './pages/chat-friend-list/chat-friend-list.module#ChatFriendListPageModule' }
 ];
 
 @NgModule({
