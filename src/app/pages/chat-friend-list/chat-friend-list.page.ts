@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user_service/user.service';
 import { ChatService } from 'src/app/services/chat_service/chat-service.service';
 import { DataService } from 'src/app/services/data_service/data.service';
 import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat-friend-list',
@@ -17,7 +18,8 @@ export class ChatFriendListPage implements OnInit {
   constructor(private userService: UserService,
     private chatService: ChatService,
     private dataService: DataService,
-    private navCtrl: NavController) { }
+    private navCtrl: NavController,
+    private router: Router) { }
 
   ngOnInit() {
     this.getAmigos();
@@ -34,12 +36,13 @@ export class ChatFriendListPage implements OnInit {
     });
   }
 
-  abrirConversa(amigoId){
-    this.chatService.openChat(this.userService.getUId(), amigoId).subscribe(
+  abrirConversa(amigo: Amigo){
+    this.chatService.openChat(this.userService.getUId(), amigo.id).subscribe(
       data=>{
         var result = data.json();
-        this.dataService.setData(amigoId, result);
-        this.navCtrl.navigateRoot('/chat/' + amigoId);
+        var conversaObj = { nome: amigo.nome, amigoId: amigo.id, result: result}
+        this.dataService.setData(amigo.id, conversaObj);
+        this.router.navigateByUrl('/chat/' + amigo.id);
       }
     );
   }

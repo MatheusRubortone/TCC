@@ -22,6 +22,7 @@ export class HomePage implements OnInit {
   resultadoBusca: Evento[] = [];
   loading: boolean;
   achouEventos: boolean;
+  eventoAcontecendo = false;
 
   constructor(private router: Router,
     private eventService: EventService,
@@ -45,7 +46,7 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-
+    this.getEventoAcontecendo();
   }
 
   searchOnInput(ev: any) {
@@ -102,4 +103,26 @@ export class HomePage implements OnInit {
     this.dataService.setData(id, evento);
     this.navCtrl.navigateRoot('/event-desc/' + id);
   }
+
+  getEventoAcontecendo(){
+    this.eventService.checkIsHappening(this.userService.getUId()).subscribe(
+      data=>{
+        var result = data.json();
+        console.log(result);
+        if(result == "TRUE") this.eventoAcontecendo = true;
+      }
+    )
+  }
+
+  async doRefresh(event) {
+    setTimeout(() => {
+      this.getEventoAcontecendo();
+      event.target.complete();
+    }, 500);
+  }
+
+  abrirListaPessoas(){
+    this.router.navigateByUrl('find-people');
+  }
+
 }

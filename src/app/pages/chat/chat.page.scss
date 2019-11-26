@@ -70,3 +70,23 @@ ion-toolbar{
 ion-footer{
     --border-width: 0;
 }
+
+#imagemPerfil{
+    float: left;
+}
+
+#nomeAmigo{
+    font-size: 5vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-right: 5%;
+}
+
+ion-title{
+    background-color: var(--ion-color-primary);
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+ion-infinite-scroll-content{
+    min-height: 10px !important;
+}

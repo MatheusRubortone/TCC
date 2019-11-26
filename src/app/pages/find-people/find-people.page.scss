@@ -1,0 +1,48 @@
+.list{
+    position: relative;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.divList{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+#imagemPerfil{
+    height: 20vw;
+    width: 20vw;
+    background-size: cover;
+    background-position: center center;
+    border-radius: 100%;
+    display: inline-block;
+    margin-right: 5%;
+}
+
+#amigoItem{
+    padding-top: 3%;
+    padding-bottom: 3%;
+    width: 95%;
+    border-bottom: 1px solid var(--ion-color-primary);
+    margin: auto;
+}
+
+
+#nomeAmigo{
+    font-size: 5vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-right: 5%;
+}
+
+#semAmigos{
+    font-family: 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+    color: #47525E;
+    font-size: 5vw;
+    overflow-wrap: break-word;
+    width: 90%;
+    margin: auto;
+    text-align: center;
+}

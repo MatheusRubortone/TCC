@@ -19,7 +19,7 @@
   </div>
   <div class="divList" *ngIf="conversas.length">
     <ion-list class="list">
-      <ion-item id="conversaItem" *ngFor="let conversa of conversas">
+      <ion-item id="conversaItem" *ngFor="let conversa of conversas" (click)="abrirConversa(conversa)">
         <div id="imagemPerfil" style="background-image: url(/assets/party.png);"></div>
         <p id="nomeAmigo">{{conversa.chatName}}</p>
         <ion-icon name="arrow-forward"></ion-icon>

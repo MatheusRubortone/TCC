@@ -15,6 +15,10 @@ export class ChatService {
   }
 
   openChat(person1, person2){
-    return this.http.post(this.env.API_URL + '/Chat/Chat/Open',{user1: person1, user2: person2});
+    return this.http.post(this.env.API_URL + '/Chat/Open', { caller: person1, called: person2 });
+  }
+
+  addMessage(chatId, senderId, message){
+    return this.http.post(this.env.API_URL + '/Chat/AddMessage', { chatID: chatId,senderID: senderId, message: message});
   }
 }

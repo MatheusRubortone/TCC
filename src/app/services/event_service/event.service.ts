@@ -98,4 +98,12 @@ export class EventService {
   respondInvitation(user, event, action){
     return this.http.post(this.env.API_URL + '/Event/InviteResponse',{userID: user,eventID: event , action: action});
   }
+
+  checkIsHappening(userid: string){
+    return this.http.post(this.env.API_URL + '/Event/CheckIsHappening', {userID: userid});
+  }
+
+  FindPepopleIn(userid: string){
+    return this.http.post(this.env.API_URL + '/Event/FindPepopleIn', {userID: userid});
+  }
 }

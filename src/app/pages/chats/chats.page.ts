@@ -3,6 +3,9 @@ import { Chat } from 'src/app/models/chat';
 import { ChatService } from 'src/app/services/chat_service/chat-service.service';
 import { UserService } from 'src/app/services/user_service/user.service';
 import { Router } from '@angular/router';
+import { Amigo } from 'src/app/models/amigo';
+import { DataService } from 'src/app/services/data_service/data.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-chats',
@@ -15,7 +18,9 @@ export class ChatsPage implements OnInit {
 
   constructor(private chatService: ChatService,
     private userService: UserService,
-    private router: Router) { }
+    private router: Router,
+    private dataService: DataService,
+    private navCtrl: NavController) { }
 
   ngOnInit() {
     this.getConversas();
@@ -32,8 +37,8 @@ export class ChatsPage implements OnInit {
           result.forEach(element => {
             this.conversas.push(
               new Chat(
-                element._personID1,
-                element._personID2,
+                element._callerID,
+                element._calledID,
                 element._chatID,
                 element._name
               )
@@ -53,6 +58,17 @@ export class ChatsPage implements OnInit {
 
   selectFriend(){
     this.router.navigateByUrl('chat-friend-list');
+  }
+
+  abrirConversa(conversa: Chat){
+    this.chatService.openChat(this.userService.getUId(), conversa._calledID).subscribe(
+      data=>{
+        var result = data.json();
+        var conversaObj = { nome: conversa.chatName, amigoId:conversa._calledID,  result: result}
+        this.dataService.setData(conversa.chatId, conversaObj);
+        this.router.navigateByUrl('/chat/' + conversa.chatId);
+      }
+    );
   }
 
 }

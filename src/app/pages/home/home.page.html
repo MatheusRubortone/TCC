@@ -5,6 +5,9 @@
 </ion-header>
 
 <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
   <ion-input type="text" id="campoBusca" placeholder="Buscar Eventos" [(ngModel)]="busca"
     (ionInput)="searchOnInput($event)"></ion-input>
   <br>
@@ -42,7 +45,7 @@
   </div>
 
   <div *ngIf="!modoBusca">
-    <div id="es">
+    <div id="es" *ngIf="eventoAcontecendo" (click)="abrirListaPessoas()">
       <h3 id="est">Está Sozinho(a)?</h3>
       <p id="estx">Vamos encontrar uma companhia para você!</p>
       <p class="seta">

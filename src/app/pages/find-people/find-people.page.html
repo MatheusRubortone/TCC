@@ -1,17 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Amigos</ion-title>
+    <ion-title>Encontrar Pessoas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <div *ngIf="!amigos.length">
         <br><br><br>
-        <p id="semConversas">Você ainda não tem nenhuma amigo.</p>
+        <p id="semAmigos">Não há usuários com presença marcada em eventos em comum.</p>
       </div>
       <div class="divList" *ngIf="amigos.length">
         <ion-list class="list">
-          <ion-item id="amigoItem" *ngFor="let amigo of amigos" (click)=abrirConversa(amigo)>
+          <ion-item id="amigoItem" *ngFor="let amigo of amigos" (click)=openProfile(amigo.id)>
             <div id="imagemPerfil" style="background-image: url(/assets/party.png);"></div>
             <p id="nomeAmigo">{{amigo.nome}}</p>
           </ion-item>
