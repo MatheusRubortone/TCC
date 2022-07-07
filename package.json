@@ -51,7 +51,7 @@
     "google-maps": "^3.3.0",
     "ionic-angular": "^3.9.8",
     "ionic2-super-tabs": "^4.1.5",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ngx-autosize": "^1.6.4",
     "rxjs": "~6.5.1",
     "rxjs-compat": "^6.5.2",
